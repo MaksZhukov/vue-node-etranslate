@@ -1,0 +1,11 @@
+<code>#This is protected repository. To initialize it you need:
+#
+# git clone -n https://github.com/<your_project_name>
+# git checkout tags/init
+# Then execute in shell:
+# . init.txt <password for repository>
+[ -z "$1" ] && echo "Argument required: <password>" && return
+git config filter.openssl.clean "openssl enc -base64 -aes-256-ecb -S 123456789 -k $1"
+git config filter.openssl.smudge "openssl enc -d -base64 -aes-256-ecb -k $1"
+git config diff.openssl.textconv "openssl enc -d -base64 -aes-256-ecb -k $1 2&>/dev/null || cat"
+git checkout master</code>
