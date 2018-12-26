@@ -3,32 +3,55 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "lint": "vue-cli-service lint --ext .js,.vue",
+    "lint": "vue-cli-service lint",
     "cli-dev": "vue-cli-service serve client/src",
     "cli-prod": "vue-cli-service build client/src",
-    "cli-test": "",
+    "cli-test": "vue-cli-service test:unit --watch",
     "server-dev": "nodemon  --experimental-modules --watch server server/index.mjs",
-    "server-prod": "node --experimental-modules server/index.mjs"
+    "server-prod": "SET NODE_ENV=production& node --experimental-modules server/index.mjs"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.6.3",
     "body-parser": "^1.18.3",
+    "config": "^3.0.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
+    "googleapis": "^36.0.0",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "node-schedule": "^1.3.1",
+    "nodemailer": "^4.7.0",
+    "npm": "^6.4.1",
     "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "passport-jwt": "^4.0.0",
-    "pg": "^7.6.1",
+    "pg": "^7.7.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.41.2",
+    "translate": "^1.0.3",
     "vue": "^2.5.17",
+    "vue-fragment": "^1.5.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.3.0",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.2.1",
+    "@vue/cli-plugin-unit-jest": "^3.2.0",
     "@vue/cli-service": "^3.0.1",
     "@vue/eslint-config-airbnb": "^4.0.0",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "jest": "^18.1.0",
+    "jest-fetch-mock": "^2.1.0",
+    "jest-localstorage-mock": "^2.3.0",
     "node-sass": "^4.9.4",
     "nodemon": "^1.18.5",
     "sass-loader": "^7.1.0",
@@ -41,7 +64,8 @@
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "jest": true
     },
     "extends": [
       "plugin:vue/essential",
@@ -50,6 +74,10 @@
     ],
     "parserOptions": {
       "parser": "babel-eslint"
+    },
+    "rules": {
+      "no-param-reassign": "off",
+      "class-methods-use-this": "off"
     }
   },
   "postcss": {

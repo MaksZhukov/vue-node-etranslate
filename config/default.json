@@ -1,0 +1,76 @@
+{
+  "client": {
+    "port": 3001
+  },
+  "server": {
+    "port": 3000,
+    "origin": "http://localhost",
+    "dbConfig":{
+      "user": "etranslate",
+      "host": "localhost",
+      "database": "Etranslate",
+      "password": "1111",
+      "port": "5432"
+    },
+    "crypto": {
+      "secret": "secret",
+      "algorithm": "aes192",
+      "inputEncoding": "utf8",
+      "outputEncoding": "hex"
+    },
+    "jwt":{
+      "accessTokenSecret": "secretAccess",
+      "refreshTokenSecret": "secretRefresh",
+      "accessTokenLife": "10m",
+      "refreshTokenLife": "30d",
+      "verifyEmailTokenSecret": "secretVerifyEmail",
+      "verifyEmailTokenLife": "1d",
+      "recoverPasswordTokenSecret": "secretRecoverPassword",
+      "recoverPasswordTokenLife": "1d"
+    },
+    "translate": {
+      "engine": "yandex",
+      "key": "trnsl.1.1.20181214T160906Z.ebbd58aba6544d37.0765025cd91350ca0a084129a5419c3b644fdce0"
+    },
+    "mail": {
+      "service": "gmail",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "type": "OAuth2",
+        "user": "etranslatenodevue@gmail.com",
+        "clientId": "850216707923-lrnh65b8u14ksd7begdjttillsnu7shk.apps.googleusercontent.com",
+        "clientSecret": "C3MVQfBDzLHhHTlz6OjTa1cv",
+        "refreshToken": "1/SV0t7PDHwaD7pVh_t0Nl1H4T92uyr8qPggFTdnyGIGs"
+      },
+      "messages": {
+        "from": "\"Etranslate\" <etranslatenodevue@gmail.com>",
+        "subjects": {
+          "confirmEmail": "Welcome, Confirm your email",
+          "recoverPassword": "Recover your password"
+        }
+      }
+    },
+    "passport": {
+      "google":    {
+          "clientID": "850216707923-lrnh65b8u14ksd7begdjttillsnu7shk.apps.googleusercontent.com",
+          "clientSecret": "C3MVQfBDzLHhHTlz6OjTa1cv"
+      }
+    },
+    "apiResponses": {
+      "userExists": { "status": "warning", "message": "user has already exists" },
+      "userNotFound": { "status": "warning", "message": "user hasn't been found" },
+      "userSignIn": { "status": "success", "message": "entry success" },
+      "problemDatabase": { "status": "error", "message": "problem with database" },
+      "problemMailer": { "status": "error", "message": "problem with mail sender" },
+      "createUser": {"status": "warning", "message": "confirm your email" },
+      "problemWithTranslate" : {"status": "error", "message": "problem with translate"},
+      "emailNoVerify": {"status": "warning", "message": "email hasn't been verify"},
+      "recoverPasswordEmail": {"status": "success", "message": "check your email"},
+      "changePassword": {"status":"success", "message": "password has been changed"},
+      "expireRecoverToken": {"status":"error", "message": "create new link"},
+      "sentRecoverMessage": {"status": "warning", "message": "recover link has been sent"},
+      "sentRecoverProvider": {"status": "warning", "message": "the email has been authorization with"}
+    }
+  }
+}

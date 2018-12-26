@@ -3,12 +3,6 @@
     <v-flex xs4 dark>
       <v-form v-model="valid">
         <v-text-field
-          label="E-mail"
-          v-model="email"
-          :rules="emailRules"
-          required
-        ></v-text-field>
-        <v-text-field
           label="Password"
           :append-icon="showPassword ? 'visibility_off' : 'visibility'"
           @click:append="showPassword = !showPassword"
@@ -32,18 +26,11 @@
         ></v-text-field>
         <v-btn
           color="primary"
-          :disabled="!valid  || signUpResponse.pending"
-          :loading="signUpResponse.pending"
-          @click="signUp({password,email})"
-        >Sign Up</v-btn>
+          :disabled="!valid  || changePasswordResponse.pending"
+          :loading="changePasswordResponse.pending"
+          @click="changePassword({password, token: $route.params.recoverToken})"
+        >Change</v-btn>
       </v-form>
-      <p class="text-uppercase">auth with:
-        <v-btn icon>
-          <a href="/api/auth/google">
-            <v-icon>fab fa-google</v-icon>
-          </a>
-        </v-btn>
-      </p>
     </v-flex>
   </v-layout>
 </template>
@@ -51,22 +38,20 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import {
-  mixinConfirmPassword, mixinRePassword, mixinEmailRules, mixinPasswordRules, mixinPassword,
+  mixinPasswordRules, mixinPassword, mixinRePassword, mixinConfirmPassword,
 } from '../mixins';
 
 export default {
   name: 'SignIn',
-  mixins: [mixinConfirmPassword, mixinRePassword, mixinEmailRules,
-    mixinPasswordRules, mixinPassword],
+  mixins: [mixinPasswordRules, mixinPassword, mixinRePassword, mixinConfirmPassword],
   data: () => ({
     valid: true,
-    email: '',
   }),
   computed: {
-    ...mapState('userModule', ['signUpResponse']),
+    ...mapState('userModule', ['changePasswordResponse', 'checkRecoverTokenResponse']),
   },
   methods: {
-    ...mapActions('userModule', ['signUp']),
+    ...mapActions('userModule', ['changePassword']),
   },
 };
 </script>
