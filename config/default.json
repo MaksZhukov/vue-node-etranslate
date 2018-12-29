@@ -21,7 +21,7 @@
     "jwt":{
       "accessTokenSecret": "secretAccess",
       "refreshTokenSecret": "secretRefresh",
-      "accessTokenLife": "10m",
+      "accessTokenLife": "1m",
       "refreshTokenLife": "30d",
       "verifyEmailTokenSecret": "secretVerifyEmail",
       "verifyEmailTokenLife": "1d",

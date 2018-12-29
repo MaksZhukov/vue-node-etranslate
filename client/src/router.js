@@ -8,6 +8,7 @@ const NotFound = () => import('./pages/NotFound.vue');
 const SignIn = () => import('./pages/SignIn.vue');
 const SignUp = () => import('./pages/SignUp.vue');
 const Dashboard = () => import('./pages/Dashboard.vue');
+const Dictionary = () => import('./pages/Dictionary.vue');
 const Recover = () => import('./pages/Recover.vue');
 const EmailForRecover = () => import('./pages/EmailForRecover.vue');
 
@@ -46,6 +47,14 @@ const router = new Router({
       },
     },
     {
+      path: '/dictionary',
+      name: 'dictionary',
+      component: Dictionary,
+      meta: {
+        user: true,
+      },
+    },
+    {
       path: '/recover/:recoverToken',
       name: 'recover',
       component: Recover,
@@ -71,24 +80,24 @@ const router = new Router({
       },
     },
     {
-      path: '/not-found',
-      name: 'notFound',
+      path: '/404',
+      name: '404',
       component: NotFound,
     },
     {
       path: '*',
-      redirect: '/not-found',
+      redirect: '/404',
     },
   ],
 });
 
 router.beforeEach(async (to, from, next) => {
-  if (to.path === '/') {
+  const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
+  if (to.path === '/' && !isTokensAndExpiresIn) {
     const { accessToken, refreshToken, expiresIn } = to.query;
     setItemsToLocalStorage({ accessToken, refreshToken, expiresIn });
   }
   const { state: { userModule: { checkTokenResponse, user } } } = store;
-  const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
   let access;
   if (!isTokensAndExpiresIn && user !== null) {
     store.commit('userModule/logOut');

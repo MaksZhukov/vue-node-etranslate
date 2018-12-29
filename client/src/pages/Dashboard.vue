@@ -17,6 +17,7 @@
         </v-flex>
         <v-spacer></v-spacer>
         <v-flex shrink>
+          <audio-recorder :from="from" :to="to"></audio-recorder>
           <v-btn @click="switchLanguages()" icon>
             <v-icon>fas fa-exchange-alt</v-icon>
           </v-btn>
@@ -65,9 +66,11 @@
 import { mapState, mapActions, mapMutations } from 'vuex';
 import { LANGUAGES, DELAY_TRANSLATE } from '../constants';
 import { delay } from '../helpers';
+import AudioRecorder from '../components/AudioRecorder.vue';
 
 export default {
   name: 'Dashboard',
+  components: { AudioRecorder },
   data: () => ({
     languages: LANGUAGES,
     delay: null,

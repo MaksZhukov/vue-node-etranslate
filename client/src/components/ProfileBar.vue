@@ -9,6 +9,9 @@
         <v-list-tile @click.stop>
           <router-link to="/dashboard" class="black--text">Dashboard</router-link>
         </v-list-tile>
+        <v-list-tile @click.stop>
+          <router-link to="/dictionary" class="black--text">Dictionary</router-link>
+        </v-list-tile>
         <v-list-tile @click="logOut">
           <v-list-tile-title>Logout</v-list-tile-title>
         </v-list-tile>
