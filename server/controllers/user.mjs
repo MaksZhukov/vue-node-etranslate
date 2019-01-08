@@ -61,7 +61,9 @@ app.post('/api/sign-in', async (req, res) => {
   const resFind = await userService.find({ email, password: encrypt(password) });
   if (resFind && resFind.id) {
     if (resFind.active) {
-      const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn({ email });
+      const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn(
+        { email, id: resFind.id },
+      );
       const resUpdate = await userService.update({ refreshToken, isRecover: false }, { email });
       if (resUpdate.error) {
         res.json(apiResponses.problemDatabase);
@@ -83,8 +85,8 @@ app.post('/api/sign-in', async (req, res) => {
 app.get('/api/auth/google', passport.authenticate('google', { scope: ['email'] }));
 
 app.get('/api/auth/google/callback', passport.authenticate('google', { failureRedirect: '/sign-in' }), async (req, res) => {
-  const { email } = req.user;
-  const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn({ email });
+  const { email, id } = req.user;
+  const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn({ email, id });
   await userService.update({ refreshToken }, { email });
   res.redirect(`${origin}:${portClient}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`);
 });
@@ -97,19 +99,21 @@ app.post('/api/update-tokens', async (req, res) => {
   const { authorization } = req.headers;
   const refreshToken = authorization.split(' ')[1];
   try {
-    const { email } = userService.verifyRefreshToken(refreshToken);
+    const { email, id } = userService.verifyRefreshToken(refreshToken);
     const resFind = await userService.find({ refreshToken });
     if (resFind && resFind.id) {
       const {
         accessToken: newAccessToken,
         refreshToken: newRefreshToken, expiresIn,
-      } = userService.getTokensAndExpiresIn({ email });
+      } = userService.getTokensAndExpiresIn({ email, id });
       await userService.update({ refreshToken: newRefreshToken }, { email });
       res.json({ expiresIn, accessToken: newAccessToken, refreshToken: newRefreshToken });
+    } else {
+      res.status(404).end();
     }
   } catch (error) {
     logger.warn(error);
-    res.json({ access: false });
+    res.status(401).end();
   }
 });
 
@@ -155,10 +159,10 @@ app.post('/api/check-recover-token', async (req, res) => {
   const recoverToken = authorization.split(' ')[1];
   try {
     userService.verifyRecoverToken(recoverToken);
-    res.json({ access: true });
+    res.end();
   } catch (error) {
     logger.warn(error);
-    res.json({ access: false });
+    res.status(401).end();
   }
 });
 

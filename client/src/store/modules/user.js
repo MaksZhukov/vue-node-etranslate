@@ -126,14 +126,11 @@ export default {
       try {
         commit('checkTokenPending', { pending: true });
         const response = await apiUser.checkToken();
-        if (response.access === false) {
-          commit('logOut');
-        } else {
-          commit('checkTokenSuccess', response);
-        }
+        commit('checkTokenSuccess', response);
         return response;
       } catch (error) {
         commit('checkTokenError', { error });
+        commit('logOut');
       }
       return {};
     },
@@ -141,13 +138,10 @@ export default {
       try {
         commit('updateTokensPending', { pending: true });
         const response = await apiUser.updateTokens();
-        if (response.access === false) {
-          commit('logOut');
-        } else {
-          commit('updateTokensSuccess', response);
-        }
+        commit('updateTokensSuccess', response);
       } catch (error) {
         commit('updateTokensError', { error });
+        commit('logOut');
       }
     },
     async sendLinkEmailForRecover({ commit }, email) {

@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import userModule from './modules/user';
+import userDictionaryModule from './modules/userDictionary';
 import translateModule from './modules/translate';
+import dictionaryModule from './modules/dictionary';
 
 Vue.use(Vuex);
 
@@ -28,5 +30,7 @@ export default new Vuex.Store({
   modules: {
     userModule,
     translateModule,
+    dictionaryModule,
+    userDictionaryModule,
   },
 });

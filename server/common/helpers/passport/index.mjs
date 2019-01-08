@@ -20,14 +20,15 @@ passport.use(new GoogleStrategy({
   clientSecret: googleConfig.clientSecret,
   callbackURL: `${origin}:${port}/api/auth/google/callback`,
 },
-(async (accessToken, refreshToken, profile, done) => {
+async (accessToken, refreshToken, profile, done) => {
   const { emails: [{ value: email }], provider } = profile;
   const resFind = await userService.find({ email });
   if (!resFind) {
     const resCreate = await userService.createWithProvider(email, provider);
     done(null, resCreate);
+  } else {
+    done(null, resFind);
   }
-  done(null, resFind);
-})));
+}));
 
 export default passport;

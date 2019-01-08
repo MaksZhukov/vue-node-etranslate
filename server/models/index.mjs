@@ -7,6 +7,7 @@ const sequelize = new Sequelize(dbConfig.database,
   dbConfig.user, dbConfig.password, {
     host: dbConfig.host,
     dialect: 'postgres',
+    port: dbConfig.port,
     pool: {
       max: 5,
       min: 0,

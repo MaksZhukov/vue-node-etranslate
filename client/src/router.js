@@ -92,26 +92,30 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
+  let isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
   if (to.path === '/' && !isTokensAndExpiresIn) {
     const { accessToken, refreshToken, expiresIn } = to.query;
     setItemsToLocalStorage({ accessToken, refreshToken, expiresIn });
+    isTokensAndExpiresIn = true;
   }
-  const { state: { userModule: { checkTokenResponse, user } } } = store;
+  const { state: { userModule: { checkTokenResponse, user }, isLoad } } = store;
   let access;
   if (!isTokensAndExpiresIn && user !== null) {
     store.commit('userModule/logOut');
     return;
   }
-  if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < new Date().getTime() / 1000) {
+  if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < (new Date().getTime() + 10000) / 1000) {
     await store.dispatch('userModule/updateTokens');
   }
-  if (user && user.email) {
+  if (user && user.id) {
     access = true;
   } else if (Object.keys(checkTokenResponse).length === 0 && isTokensAndExpiresIn) {
-    ({ access } = (await store.dispatch('userModule/checkToken')));
+    await store.dispatch('userModule/checkToken');
+    access = true;
   }
-  store.commit('loaded');
+  if (!isLoad) {
+    store.commit('loaded');
+  }
   if (to.meta.user && !access) {
     next('sign-in');
     return;

@@ -4,7 +4,7 @@ import translate from '../../common/helpers/translate';
 
 
 class TranslateService {
-  async translateText({ text, from, to }) {
+  async translate({ text, from, to }) {
     try {
       return await translate(text, { from, to });
     } catch (err) {

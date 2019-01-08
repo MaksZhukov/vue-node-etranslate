@@ -5,7 +5,11 @@ const signUp = data => fetch('api/sign-up', {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify(data),
-}).then(response => response.json());
+}).then((response) => {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  } return response.json();
+});
 
 const signIn = data => fetch('api/sign-in', {
   method: 'POST',
@@ -22,14 +26,22 @@ const checkToken = () => fetch('api/check-token', {
   headers: {
     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
   },
-}).then(response => response.json());
+}).then((response) => {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  } return response.json();
+});
 
 const checkRecoverToken = token => fetch('../api/check-recover-token', {
   method: 'post',
   headers: {
     Authorization: `Bearer ${token}`,
   },
-}).then(response => response.json());
+}).then((response) => {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  } return response.json();
+});
 
 const changePassword = ({ token, password }) => fetch('../api/change-password', {
   method: 'post',
@@ -39,14 +51,22 @@ const changePassword = ({ token, password }) => fetch('../api/change-password', 
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({ password }),
-}).then(response => response.json());
+}).then((response) => {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  } return response.json();
+});
 
 const updateTokens = () => fetch('api/update-tokens', {
   method: 'post',
   headers: {
     Authorization: `Bearer ${localStorage.getItem('refreshToken')}`,
   },
-}).then(response => response.json());
+}).then((response) => {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  } return response.json();
+});
 
 const sendLinkEmailForRecover = email => fetch('api/email-for-recover', {
   method: 'post',

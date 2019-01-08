@@ -1,10 +1,11 @@
 import apiTranslate from '../../api/translate';
+import { cacheTranslate } from '../../helpers';
 
 const defaultState = () => ({
   inputText: '',
   outputText: '',
-  from: { state: 'Русский', abbr: 'ru' },
-  to: { state: 'English', abbr: 'en' },
+  from: { state: 'English', abbr: 'en' },
+  to: { state: 'Русский', abbr: 'ru' },
   translateResponse: {},
 });
 
@@ -20,11 +21,7 @@ export default {
     },
     translateSuccess(state, payload) {
       state.translateResponse = payload;
-      if (state.inputText) {
-        state.outputText = payload;
-      } else {
-        state.outputText = '';
-      }
+      state.outputText = payload;
     },
     switchLanguages(state) {
       [state.inputText, state.outputText] = [state.outputText, state.inputText];
@@ -41,19 +38,21 @@ export default {
     },
     clearOutputText(state) {
       state.outputText = '';
+      state.describeTranslate = { tr: [] };
     },
   },
   actions: {
     async translate({ commit }, { text, from, to }) {
       try {
         commit('translatePending', { pending: true });
-        const response = await apiTranslate.translate({ text, from, to });
-        if (response.status === 'error') {
-          commit('showSnackBar', { message: response.message, color: response.status }, { root: true });
-          commit('translateSuccess', '');
+        let response;
+        if (cacheTranslate.get(text)) {
+          response = cacheTranslate.get(text);
         } else {
-          commit('translateSuccess', response);
+          response = await apiTranslate.translate({ text, from, to });
+          cacheTranslate.set(text, response);
         }
+        commit('translateSuccess', response);
       } catch (error) {
         commit('translateError', { error });
       }

@@ -1,3 +1,8 @@
+import JsCache from 'js-cache';
+
+const cacheDictionary = new JsCache();
+const cacheTranslate = new JsCache();
+
 const setItemsToLocalStorage = (data) => {
   Object.keys(data).forEach((name) => {
     localStorage.setItem(name, data[name]);
@@ -18,4 +23,6 @@ export {
   setItemsToLocalStorage,
   checkItemsInLocalStorage,
   delay,
+  cacheDictionary,
+  cacheTranslate,
 };

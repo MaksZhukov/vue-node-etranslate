@@ -7,10 +7,10 @@ const checkAuth = (req, res, next) => {
     const { authorization } = req.headers;
     const accessToken = authorization.split(' ')[1];
     verify = userService.verifyAccessToken(accessToken);
-    req.verify = { email: verify.email, access: true };
+    req.verify = { email: verify.email, id: verify.id };
   } catch (error) {
     logger.warn(error);
-    req.verify = { access: false };
+    res.status(401);
   }
   next();
 };

@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import sequelize from './index';
+import Dictionary from './userDictionary';
 
 const User = sequelize.define('user', {
   email: {
@@ -27,5 +28,7 @@ const User = sequelize.define('user', {
     type: Sequelize.STRING,
   },
 });
+
+Dictionary.belongsTo(User);
 
 export default User;

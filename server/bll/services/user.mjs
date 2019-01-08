@@ -65,7 +65,6 @@ class UserService {
   }
 
   createLinkVerify(payload) {
-    jwt.invalidate();
     const verifyEmailToken = jwt.sign(payload, jwtConfig.verifyEmailTokenSecret,
       { expiresIn: jwtConfig.verifyEmailTokenLife });
     return `<a href="${origin}:${portServer}/api/verify-email/${verifyEmailToken}">verify your email</a>`;
