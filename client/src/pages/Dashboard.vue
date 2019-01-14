@@ -1,178 +1,134 @@
 <template>
-  <v-layout>
-    <v-flex xs6>
-      <v-layout align-center>
-        <v-flex xs6 md4>
-          <v-select
-            v-model="from"
-            :hint="`${from.state}, ${from.abbr}`"
-            :items="languages"
-            item-text="state"
-            item-value="abbr"
-            persistent-hint
-            return-object
-            single-line
-            class="mb-3"
-          ></v-select>
-        </v-flex>
-        <v-spacer></v-spacer>
-        <v-flex shrink>
-          <audio-recorder :from="from" :to="to"></audio-recorder>
-          <v-btn
-            :disabled="translateResponse.pending || getDictionaryResponse.pending"
-            :loading="translateResponse.pending || getDictionaryResponse.pending"
-            @click="switchLanguages(); handleInput(false)"
-            icon
-          >
-            <v-icon>fas fa-exchange-alt</v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
-      <v-textarea
-        outline
-        clearable
-        counter
-        @input="!delay && handleInput(true)"
-        :label="from.state"
-        v-model="inputText"
-      ></v-textarea>
-      <v-list three-line class="no-bg">
-        <v-list-tile-content
-          v-for="(item,key) in dictionaryFromLang"
-          :key="key"
-        >
-          <v-list-tile-title
-            class="subheading"
-          >{{item.text}} [{{item.ts}}] {{item.pos}}</v-list-tile-title>
-          <template v-for="(itemTr,keyTr) in item.tr">
-            <v-list-tile-sub-title
-              class="text--primary"
-              :key="key + 'tr' + keyTr"
+  <fragment>
+    <v-layout>
+      <v-flex xs6>
+        <v-layout align-center>
+          <v-flex xs6 md4>
+            <v-select
+              v-model="from"
+              :hint="`${from.state}, ${from.abbr}`"
+              :items="languagesFrom"
+              item-text="state"
+              item-value="abbr"
+              persistent-hint
+              return-object
+              single-line
+              @change="updateListLanguagesFrom"
+              class="mb-3"
+            ></v-select>
+          </v-flex>
+          <v-spacer></v-spacer>
+          <v-flex shrink>
+            <voice-pronunciation :text="inputText" :lang="from.abbr"></voice-pronunciation>
+            <voice-recorder
+              @onResultVoiceRecorder="handleResultVoiceRecorder"
+              :from="from"
+              :to="to"
+            ></voice-recorder>
+            <v-btn icon @click="isShowKeyBoard = !isShowKeyBoard">
+              <v-icon :color="isShowKeyBoard ? 'red' : 'black'">keyboard</v-icon>
+            </v-btn>
+            <v-btn
+              :disabled="translateResponse.pending || getDictionaryResponse.pending"
+              :loading="translateResponse.pending || getDictionaryResponse.pending"
+              @click="switchLanguages(); getTranslateAndDictionary()"
+              icon
             >
-              {{++keyTr}}
-              <span
-                class="teal--text"
-                :style="{ cursor: 'pointer'}"
-                @click="handleChoseSyn(itemTr.text)"
-              >{{ itemTr.text }}</span>
-              <span
-                class="teal--text"
-                :style="{ cursor: 'pointer'}"
-                v-for="(syn,keySyn) in itemTr.syn"
-                @click="handleChoseSyn(syn.text)"
-                :key="key + 'syn' + keySyn"
-              >{{itemTr.syn.length ===1 || itemTr.syn.length !==keySyn ? ', ': ''}}{{syn.text}}</span>
-              <template v-if="itemTr.mean">
-                (
-                <span
-                  class="teal--text"
-                  :style="{ cursor: 'pointer'}"
-                  v-for="(mean,keyMean) in itemTr.mean"
-                  :key="key + 'mean' + keyMean"
-                  @click="handleChoseSyn(mean.text)"
-                >{{mean.text}}{{itemTr.mean.length !==1 && itemTr.mean.length - 1 !==keyMean ? ', ': ''}}</span>
-                )
-              </template>
-            </v-list-tile-sub-title>
-            <v-list-tile-sub-title
-              class="pl-3"
-              v-for="(ex,keyEx) in itemTr.ex"
-              :key="key + ex.text + keyEx"
-            >{{ex.text}} - {{ex.tr[0].text}}</v-list-tile-sub-title>
-          </template>
-        </v-list-tile-content>
-      </v-list>
-    </v-flex>
-    <v-flex xs6>
-      <v-layout align-center>
-        <v-flex xs6 md4>
-          <v-select
-            v-model="to"
-            :hint="`${to.state}, ${to.abbr}`"
-            :items="languages"
-            item-text="state"
-            item-value="abbr"
-            persistent-hint
-            return-object
-            single-line
-            @change="inputText && translate({text: inputText, from: from.abbr, to: to.abbr})"
-            class="mb-3"
-          ></v-select>
-        </v-flex>
-      </v-layout>
-      <v-textarea
-        outline
-        counter
-        readonly
-        :placeholder="translateResponse.pending ? 'Loading' : ''"
-        :label="to.state"
-        v-model="outputText"
-      ></v-textarea>
-      <v-list three-line class="no-bg">
-        <v-list-tile-content v-for="(item,key) in dictionary" :key="key">
-          <v-list-tile-title
-            class="subheading"
-          >{{item.text}} [{{item.ts}}] {{item.pos}}</v-list-tile-title>
-          <template v-for="(itemTr,keyTr) in item.tr">
-            <v-list-tile-sub-title
-              class="text--primary"
-              :key="key + 'tr' + keyTr"
-            >
-              {{++keyTr}}
-              <span
-                class="teal--text"
-                :style="{ cursor: 'pointer'}"
-                @click="switchLanguages(); handleChoseSyn(itemTr.text)"
-              >{{ itemTr.text }}</span>
-              <span
-                class="teal--text"
-                :style="{ cursor: 'pointer'}"
-                v-for="(syn,keySyn) in itemTr.syn"
-                @click="switchLanguages(); handleChoseSyn(syn.text)"
-                :key="key + 'syn' + keySyn"
-              >{{itemTr.syn.length ===1 || itemTr.syn.length !==keySyn ? ', ': ''}}{{syn.text}}</span>
-              <template v-if="itemTr.mean">
-                (
-                <span
-                  class="teal--text"
-                  :style="{ cursor: 'pointer'}"
-                  v-for="(mean,keyMean) in itemTr.mean"
-                  :key="key + 'mean' + keyMean"
-                  @click="handleChoseSyn(mean.text)"
-                >{{mean.text}}{{itemTr.mean.length !==1 && itemTr.mean.length - 1 !==keyMean ? ', ': ''}}</span>
-                )
-              </template>
-            </v-list-tile-sub-title>
-            <v-list-tile-sub-title
-              class="pl-3"
-              v-for="(ex,keyEx) in itemTr.ex"
-              :key="key + ex.text + keyEx"
-            >{{ex.text}} - {{ex.tr[0].text}}</v-list-tile-sub-title>
-          </template>
-        </v-list-tile-content>
-      </v-list>
-    </v-flex>
-  </v-layout>
+              <v-icon>fas fa-exchange-alt</v-icon>
+            </v-btn>
+          </v-flex>
+        </v-layout>
+        <v-textarea
+          ref="areaInput"
+          outline
+          clearable
+          counter
+          auto-grow
+          @input="delay(getTranslateAndDictionary,delayTranslate)"
+          :label="from.state"
+          v-model="inputText"
+        ></v-textarea>
+        <dictionary-from-lang @clickChoseSyn="handleClickChoseWord"></dictionary-from-lang>
+      </v-flex>
+      <v-flex xs6>
+        <v-layout align-center>
+          <v-flex xs6 md4>
+            <v-select
+              v-model="to"
+              :hint="`${to.state}, ${to.abbr}`"
+              :items="languagesTo"
+              item-text="state"
+              item-value="abbr"
+              persistent-hint
+              return-object
+              single-line
+              @change="updateListLanguagesTo();inputText && getTranslateAndDictionary()"
+              class="mb-3"
+            ></v-select>
+          </v-flex>
+          <v-spacer></v-spacer>
+          <v-flex shrink>
+            <voice-pronunciation :text="outputText" :lang="to.abbr"></voice-pronunciation>
+          </v-flex>
+        </v-layout>
+        <v-textarea
+          outline
+          counter
+          readonly
+          auto-grow
+          :placeholder="translateResponse.pending ? 'Loading' : ''"
+          :label="to.state"
+          v-model="outputText"
+        ></v-textarea>
+        <dictionary-translate
+          @clickChoseWord="handleClickChoseWord"
+          @clickChoseWordAnotherLang="switchLanguages(); handleClickChoseWord($event)"
+        ></dictionary-translate>
+      </v-flex>
+    </v-layout>
+    <v-layout justify-center>
+      <v-flex xs10 md8 lg6>
+        <virtual-keyboard
+          v-show="isShowKeyBoard"
+          :inputText="inputText"
+          @onChange="handleOnChangeVirtualKeyboard"
+          @onEnter="getTranslateAndDictionary()"
+        ></virtual-keyboard>
+      </v-flex>
+    </v-layout>
+  </fragment>
 </template>
 
 <script>
 
 import { mapState, mapActions, mapMutations } from 'vuex';
+import VirtualKeyboard from '../components/VirtualKeyboard.vue';
 import { LANGUAGES, DELAY_TRANSLATE } from '../constants';
-import { delay, checkItemsInLocalStorage } from '../helpers';
-import AudioRecorder from '../components/AudioRecorder.vue';
+import { checkItemsInLocalStorage } from '../helpers';
+import VoiceRecorder from '../components/VoiceRecorder.vue';
+import VoicePronunciation from '../components/VoicePronunciation.vue';
+import DictionaryTranslate from '../components/DictionaryTranslate.vue';
+import DictionaryFromLang from '../components/DictionaryFromLang.vue';
 
 export default {
   name: 'Dashboard',
-  components: { AudioRecorder },
+  components: {
+    VoiceRecorder, DictionaryTranslate, DictionaryFromLang, VoicePronunciation, VirtualKeyboard,
+  },
   data: () => ({
-    languages: LANGUAGES,
-    delay: null,
+    languagesFrom: LANGUAGES,
+    languagesTo: LANGUAGES,
+    delayTimer: 0,
+    delayTranslate: DELAY_TRANSLATE,
+    isShowKeyBoard: false,
   }),
+  created() {
+    this.runTranslateQueryUrl(this.$route.query);
+  },
   computed: {
     ...mapState('userModule', ['user']),
     ...mapState('translateModule', ['outputText', 'translateResponse']),
-    ...mapState('dictionaryModule', ['dictionary', 'dictionaryFromLang', 'getDictionaryResponse']),
+    ...mapState('dictionaryModule', ['getDictionaryResponse']),
     inputText: {
       get() {
         return this.$store.state.translateModule.inputText;
@@ -202,12 +158,8 @@ export default {
     ...mapActions('translateModule', ['translate']),
     ...mapActions('dictionaryModule', ['getDictionary']),
     ...mapMutations('dictionaryModule', ['clearDictionaries']),
-    ...mapMutations('translateModule', ['clearOutputText', 'switchLanguages']),
-    async handleInput(isDelay) {
-      if (isDelay) {
-        this.delay = DELAY_TRANSLATE;
-        await delay(this.delay);
-      }
+    ...mapMutations('translateModule', ['clearOutputText', 'switchChosenLanguages']),
+    async getTranslateAndDictionary() {
       if (this.inputText) {
         const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
         if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < (new Date().getTime() + 10000) / 1000) {
@@ -215,12 +167,66 @@ export default {
         }
         this.translate({ text: this.inputText, from: this.from.abbr, to: this.to.abbr });
         this.getDictionary({ text: this.inputText, from: this.from.abbr, to: this.to.abbr });
+        this.$router.push({ path: 'dashboard', query: { text: this.inputText, from: this.from.abbr, to: this.to.abbr } });
       }
-      this.delay = null;
     },
-    handleChoseSyn(text) {
+    delay(callback, ms) {
+      clearTimeout(this.delayTimer);
+      this.delayTimer = setTimeout(() => {
+        callback();
+      }, ms);
+    },
+    updateListLanguagesFrom() {
+      this.languagesTo = LANGUAGES.map((lang) => {
+        if (lang.abbr === this.from.abbr) {
+          return { ...lang, disabled: true };
+        }
+        return lang;
+      });
+    },
+    updateListLanguagesTo() {
+      this.languagesFrom = LANGUAGES.map((lang) => {
+        if (lang.abbr === this.to.abbr) {
+          return { ...lang, disabled: true };
+        }
+        return lang;
+      });
+    },
+    switchLanguages() {
+      [this.languagesFrom, this.languagesTo] = [this.languagesTo, this.languagesFrom];
+      this.switchChosenLanguages();
+    },
+    handleResultVoiceRecorder(text) {
       this.inputText = text;
-      this.handleInput(false);
+      this.getTranslateAndDictionary();
+    },
+    handleClickChoseWord(text) {
+      this.inputText = text;
+      this.getTranslateAndDictionary();
+    },
+    handleOnChangeVirtualKeyboard(text) {
+      this.inputText = text;
+    },
+    runTranslateQueryUrl(query) {
+      const { text, to, from } = query;
+      if (text && to && from) {
+        const resFrom = this.languagesFrom.find(lang => lang.abbr === from);
+        const resTo = this.languagesTo.find(lang => lang.abbr === to);
+        if (!resFrom || !resTo) {
+          this.$router.push('dashboard');
+        } else {
+          this.to = resTo;
+          this.from = resFrom;
+          this.inputText = text;
+          this.getTranslateAndDictionary();
+        }
+      } else {
+        this.inputText = '';
+        this.clearOutputText();
+        this.clearDictionaries();
+      }
+      this.updateListLanguagesTo();
+      this.updateListLanguagesFrom();
     },
   },
   watch: {
@@ -228,13 +234,17 @@ export default {
       if (!val) {
         this.clearOutputText();
         this.clearDictionaries();
+        this.$router.push({ path: 'dashboard', query: { } });
       }
+    },
+    '$route.query': function (query) {
+      this.runTranslateQueryUrl(query);
     },
   },
 };
 </script>
 
 <style lang="sass">
-  .theme--light.v-list
+  .theme--light.v-list.no-bg
     background: none;
 </style>

@@ -3,6 +3,9 @@ import JsCache from 'js-cache';
 const cacheDictionary = new JsCache();
 const cacheTranslate = new JsCache();
 
+
+const queryString = params => Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
+
 const setItemsToLocalStorage = (data) => {
   Object.keys(data).forEach((name) => {
     localStorage.setItem(name, data[name]);
@@ -17,12 +20,11 @@ const checkItemsInLocalStorage = (arrItems) => {
   });
   return response;
 };
-const delay = m => new Promise(r => setTimeout(r, m));
 
 export {
   setItemsToLocalStorage,
   checkItemsInLocalStorage,
-  delay,
   cacheDictionary,
   cacheTranslate,
+  queryString,
 };

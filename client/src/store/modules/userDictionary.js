@@ -57,7 +57,7 @@ export default {
         const response = await apiDictionary.getDictionary(rootState.userModule.user.id);
         commit('getDictionarySuccess', response);
       } catch (error) {
-        commit('getDictionaryError', { error });
+        commit('getDictionaryError', error);
       }
     },
     async removeFromDictionary({ commit, rootState, dispatch }, id) {
@@ -73,7 +73,7 @@ export default {
         await apiDictionary.removeFromDictionary(id);
         commit('removeFromDictionarySuccess', id);
       } catch (error) {
-        commit('removeFromDictionaryError', { error });
+        commit('removeFromDictionaryError', error);
       }
     },
     async addToDictionary({ commit, rootState, dispatch }, { text, translate }) {
@@ -91,7 +91,7 @@ export default {
         );
         commit('addToDictionarySuccess', response);
       } catch (error) {
-        commit('addToDictionaryError', { error });
+        commit('addToDictionaryError', error);
       }
     },
   },

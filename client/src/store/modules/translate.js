@@ -1,5 +1,5 @@
 import apiTranslate from '../../api/translate';
-import { cacheTranslate } from '../../helpers';
+import { cacheTranslate, queryString } from '../../helpers';
 
 const defaultState = () => ({
   inputText: '',
@@ -21,9 +21,14 @@ export default {
     },
     translateSuccess(state, payload) {
       state.translateResponse = payload;
-      state.outputText = payload;
+      if (!state.inputText) {
+        state.outputText = '';
+        state.describeTranslate = { tr: [] };
+      } else {
+        state.outputText = payload;
+      }
     },
-    switchLanguages(state) {
+    switchChosenLanguages(state) {
       [state.inputText, state.outputText] = [state.outputText, state.inputText];
       [state.from, state.to] = [state.to, state.from];
     },
@@ -46,15 +51,19 @@ export default {
       try {
         commit('translatePending', { pending: true });
         let response;
-        if (cacheTranslate.get(text)) {
-          response = cacheTranslate.get(text);
+        if (cacheTranslate.get(`${text}-${to}`)) {
+          response = cacheTranslate.get(`${text}-${to}`);
         } else {
-          response = await apiTranslate.translate({ text, from, to });
-          cacheTranslate.set(text, response);
+          response = await apiTranslate.translate(queryString({ text, from, to }));
+          cacheTranslate.set(`${text}-${to}`, response);
+        }
+        if (response.status === 'error') {
+          throw response;
         }
         commit('translateSuccess', response);
       } catch (error) {
-        commit('translateError', { error });
+        commit('translateError', error);
+        commit('showSnackBar', { message: error.message, color: 'error' }, { root: true });
       }
     },
   },

@@ -8,7 +8,7 @@ const LANGUAGES = [
   { state: 'Український', abbr: 'uk' },
   { state: 'Italiano', abbr: 'it' },
 ];
-const DELAY_TRANSLATE = 1000;
+const DELAY_TRANSLATE = 350;
 
 export {
   LANGUAGES,

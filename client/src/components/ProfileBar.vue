@@ -1,5 +1,5 @@
 <template>
-  <fragment data-appu>
+  <fragment>
     <v-menu offset-y>
       <v-btn slot="activator" flat>
         {{email}}

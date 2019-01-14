@@ -66,6 +66,8 @@
       "userSignIn": { "status": "success", "message": "entry success" },
       "problemDatabase": { "status": "error", "message": "problem with database" },
       "problemMailer": { "status": "error", "message": "problem with mail sender" },
+      "problemDictionary": { "status": "error", "message": "problem with dictionary" },
+      "problemTranslate": { "status": "error", "message": "problem with translate" },
       "createUser": {"status": "warning", "message": "confirm your email" },
       "emailNoVerify": {"status": "warning", "message": "email hasn't been verify"},
       "recoverPasswordEmail": {"status": "success", "message": "check your email"},

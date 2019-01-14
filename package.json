@@ -11,6 +11,7 @@
     "server-prod": "SET NODE_ENV=production& node --experimental-modules server/index.mjs"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "@fortawesome/fontawesome-free": "^5.6.3",
     "body-parser": "^1.18.3",
     "config": "^3.0.1",
@@ -30,6 +31,8 @@
     "pg-hstore": "^2.3.2",
     "postgresql": "0.0.1",
     "sequelize": "^4.41.2",
+    "simple-keyboard": "^2.13.2",
+    "simple-keyboard-layouts": "^1.2.4",
     "translate": "^1.0.3",
     "vue": "^2.5.17",
     "vue-fragment": "^1.5.0",

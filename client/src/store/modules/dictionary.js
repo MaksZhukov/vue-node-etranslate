@@ -1,5 +1,5 @@
 import apiTranslate from '../../api/dictionary';
-import { cacheDictionary } from '../../helpers';
+import { cacheDictionary, queryString } from '../../helpers';
 
 const defaultState = () => ({
   getDictionaryResponse: {},
@@ -32,15 +32,19 @@ export default {
       try {
         commit('getDictionaryPending', { pending: true });
         let response;
-        if (cacheDictionary.get(text)) {
-          response = cacheDictionary.get(text);
+        if (cacheDictionary.get(`${text}-${to}`)) {
+          response = cacheDictionary.get(`${text}-${to}`);
         } else {
-          response = await apiTranslate.getDictionary({ text, from, to });
-          cacheDictionary.set(text, response);
+          response = await apiTranslate.getDictionary(queryString({ text, from, to }));
+          cacheDictionary.set(`${text}-${to}`, response);
+        }
+        if (response.status === 'error') {
+          throw response;
         }
         commit('getDictionarySuccess', response);
       } catch (error) {
-        commit('translateError', { error });
+        commit('getDictionaryError', error);
+        commit('showSnackBar', { message: error.message, color: 'error' }, { root: true });
       }
     },
   },

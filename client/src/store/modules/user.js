@@ -109,7 +109,7 @@ export default {
         }
         commit('showSnackBar', { message: response.message, color: response.status }, { root: true });
       } catch (error) {
-        commit('signInError', { error });
+        commit('signInError', error);
       }
     },
     async signUp({ commit }, { email, password }) {
@@ -119,7 +119,7 @@ export default {
         commit('signUpSuccess', response);
         commit('showSnackBar', { message: response.message, color: response.status }, { root: true });
       } catch (error) {
-        commit('signUpError', { error });
+        commit('signUpError', error);
       }
     },
     async checkToken({ commit }) {
@@ -129,7 +129,7 @@ export default {
         commit('checkTokenSuccess', response);
         return response;
       } catch (error) {
-        commit('checkTokenError', { error });
+        commit('checkTokenError', error);
         commit('logOut');
       }
       return {};
@@ -140,7 +140,7 @@ export default {
         const response = await apiUser.updateTokens();
         commit('updateTokensSuccess', response);
       } catch (error) {
-        commit('updateTokensError', { error });
+        commit('updateTokensError', error);
         commit('logOut');
       }
     },
@@ -151,7 +151,7 @@ export default {
         commit('sendLinkEmailForRecoverSuccess', response);
         commit('showSnackBar', { message: response.message, color: response.status }, { root: true });
       } catch (error) {
-        commit('sendLinkEmailForRecoverError', { error });
+        commit('sendLinkEmailForRecoverError', error);
       }
     },
     async checkRecoverToken({ commit }, token) {
@@ -160,7 +160,7 @@ export default {
         const response = await apiUser.checkRecoverToken(token);
         commit('checkRecoverTokenSuccess', response);
       } catch (error) {
-        commit('checkRecoverTokenError', { error });
+        commit('checkRecoverTokenError', error);
       }
     },
     async changePassword({ commit }, { token, password }) {
@@ -173,7 +173,7 @@ export default {
         }
         commit('showSnackBar', { message: response.message, color: response.status }, { root: true });
       } catch (error) {
-        commit('changePasswordError', { error });
+        commit('changePasswordError', error);
       }
     },
   },
