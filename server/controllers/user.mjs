@@ -69,7 +69,13 @@ app.post('/api/sign-in', async (req, res) => {
         res.json(apiResponses.problemDatabase);
       } else {
         res.json({
-          ...apiResponses.userSignIn, accessToken, refreshToken, expiresIn, email, access: true,
+          ...apiResponses.userSignIn,
+          accessToken,
+          refreshToken,
+          expiresIn,
+          email,
+          access: true,
+          id: resFind.id,
         });
       }
     } else {
@@ -85,6 +91,15 @@ app.post('/api/sign-in', async (req, res) => {
 app.get('/api/auth/google', passport.authenticate('google', { scope: ['email'] }));
 
 app.get('/api/auth/google/callback', passport.authenticate('google', { failureRedirect: '/sign-in' }), async (req, res) => {
+  const { email, id } = req.user;
+  const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn({ email, id });
+  await userService.update({ refreshToken }, { email });
+  res.redirect(`${origin}:${portClient}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`);
+});
+
+app.get('/api/auth/yandex', passport.authenticate('yandex'));
+
+app.get('/api/auth/yandex/callback', passport.authenticate('yandex', { failureRedirect: '/sign-in' }), async (req, res) => {
   const { email, id } = req.user;
   const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn({ email, id });
   await userService.update({ refreshToken }, { email });

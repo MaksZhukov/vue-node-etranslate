@@ -1,4 +1,4 @@
-# node-vue-Etranslate
+# test
 
 ## Project setup
 ```

@@ -5,7 +5,13 @@ const Dictionary = sequelize.define('userDictionary', {
   text: {
     type: Sequelize.STRING,
   },
+  textLang: {
+    type: Sequelize.STRING,
+  },
   translate: {
+    type: Sequelize.STRING,
+  },
+  translateLang: {
     type: Sequelize.STRING,
   },
 });

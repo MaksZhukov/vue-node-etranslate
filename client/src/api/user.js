@@ -5,11 +5,7 @@ const signUp = data => fetch('api/sign-up', {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify(data),
-}).then((response) => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  } return response.json();
-});
+}).then(response => response.json());
 
 const signIn = data => fetch('api/sign-in', {
   method: 'POST',

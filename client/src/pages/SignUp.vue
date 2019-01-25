@@ -37,13 +37,7 @@
           @click="signUp({password,email})"
         >Sign Up</v-btn>
       </v-form>
-      <p class="text-uppercase">auth with:
-        <v-btn icon>
-          <a href="/api/auth/google">
-            <v-icon>fab fa-google</v-icon>
-          </a>
-        </v-btn>
-      </p>
+      <auth-with></auth-with>
     </v-flex>
   </v-layout>
 </template>
@@ -53,9 +47,11 @@ import { mapActions, mapState } from 'vuex';
 import {
   mixinConfirmPassword, mixinRePassword, mixinEmailRules, mixinPasswordRules, mixinPassword,
 } from '../mixins';
+import AuthWith from '../components/AuthWith.vue';
 
 export default {
   name: 'SignIn',
+  components: { AuthWith },
   mixins: [mixinConfirmPassword, mixinRePassword, mixinEmailRules,
     mixinPasswordRules, mixinPassword],
   data: () => ({

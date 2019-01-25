@@ -27,13 +27,7 @@
         >Sign In</v-btn>
         <v-btn to="/email-for-recover">Forget password</v-btn>
       </v-form>
-      <p class="text-uppercase">auth with:
-        <v-btn icon>
-          <a href="/api/auth/google">
-            <v-icon>fab fa-google</v-icon>
-          </a>
-        </v-btn>
-      </p>
+      <auth-with></auth-with>
     </v-flex>
   </v-layout>
 </template>
@@ -41,9 +35,11 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import { mixinEmailRules, mixinPasswordRules, mixinPassword } from '../mixins';
+import AuthWith from '../components/AuthWith.vue';
 
 export default {
   name: 'signIn',
+  components: { AuthWith },
   mixins: [mixinEmailRules, mixinPasswordRules, mixinPassword],
   data: () => ({
     valid: true,
@@ -54,6 +50,9 @@ export default {
   },
   methods: {
     ...mapActions('userModule', ['signIn']),
+    handleSignIn() {
+
+    },
   },
 };
 </script>

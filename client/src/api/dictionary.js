@@ -4,11 +4,7 @@ const getDictionary = query => fetch(`api/get-dictionary?${query}`, {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
   },
-}).then((response) => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  } return response.json();
-});
+}).then(response => response.json());
 
 export default {
   getDictionary,

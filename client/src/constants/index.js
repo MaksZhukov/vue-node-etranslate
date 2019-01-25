@@ -1,13 +1,15 @@
 const LANGUAGES = [
-  { state: 'Русский', abbr: 'ru' },
-  { state: '中國', abbr: 'zh' },
-  { state: 'English', abbr: 'en' },
-  { state: 'Deutsch', abbr: 'de' },
-  { state: 'Беларускі', abbr: 'be' },
-  { state: 'Französisch', abbr: 'fr' },
-  { state: 'Український', abbr: 'uk' },
-  { state: 'Italiano', abbr: 'it' },
+  { name: 'Русский', abbr: 'ru' },
+  { name: '中國', abbr: 'zh' },
+  { name: 'English', abbr: 'en' },
+  { name: 'Deutsch', abbr: 'de' },
+  { name: 'Беларускі', abbr: 'be' },
+  { name: 'Französisch', abbr: 'fr' },
+  { name: 'Український', abbr: 'uk' },
+  { name: 'Italiano', abbr: 'it' },
 ];
+
+
 const DELAY_TRANSLATE = 350;
 
 export {

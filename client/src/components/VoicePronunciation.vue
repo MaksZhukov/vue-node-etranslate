@@ -1,11 +1,14 @@
 <template>
-  <v-btn
-    :disabled="isDisabled"
-    @click="!isActive ? startSpeak() : stopSpeak()"
-    icon
-  >
-    <v-icon :color="isActive ? 'red' : 'black'">volume_up</v-icon>
-  </v-btn>
+  <v-tooltip bottom>
+    <v-btn
+      slot="activator"
+      :disabled="isDisabled"
+      @click="!isActive ? startSpeak() : stopSpeak()"
+      icon
+    >
+      <v-icon :color="isActive ? 'red' : 'black'">volume_up</v-icon>
+    </v-btn>Voice pronounication
+  </v-tooltip>
 </template>
 
 <script>
@@ -15,40 +18,61 @@ export default {
   props: {
     text: [String, null],
     lang: {
-      type: String,
       required: true,
+      type: String,
+    },
+    voices: {
+      required: true,
+      type: Array,
     },
   },
   data: () => ({
     isActive: false,
     isDisabled: false,
-    msg: new SpeechSynthesisUtterance(),
+    msg: null,
+    voice: null,
   }),
   created() {
-    this.msg.onend = this.handleEnd;
+    if (window.SpeechSynthesisUtterance) {
+      this.msg = new SpeechSynthesisUtterance();
+      this.msg.onend = this.handleEnd;
+    } else {
+      this.isDisabled = true;
+    }
   },
   methods: {
     startSpeak() {
       this.isActive = true;
-      this.msg.lang = this.lang;
       this.msg.text = this.text;
-      speechSynthesis.speak(this.msg);
+      this.msg.lang = this.voice.lang;
+      window.speechSynthesis.speak(this.msg);
     },
     stopSpeak() {
       this.handleEnd();
     },
     handleEnd() {
       this.isActive = false;
-      speechSynthesis.cancel();
+      window.speechSynthesis.cancel();
     },
-  },
-  watch: {
-    lang(val) {
-      if (speechSynthesis.getVoices().filter(voice => voice.lang.includes(val)).length > 0) {
+    checkAllowLang() {
+      this.voices.forEach((voice) => {
+        if (voice.lang.includes(this.lang)) {
+          this.voice = voice;
+        }
+      });
+      if (this.voice) {
         this.isDisabled = false;
       } else {
         this.isDisabled = true;
       }
+    },
+  },
+  watch: {
+    lang() {
+      this.checkAllowLang();
+    },
+    voices() {
+      this.checkAllowLang();
     },
   },
 };

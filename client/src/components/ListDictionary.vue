@@ -1,64 +1,88 @@
 <template>
-    <fragment>
-      <v-layout row align-center>
-        <v-flex xs1>
-          <v-checkbox></v-checkbox>
-        </v-flex>
-        <v-flex xs5>
-          <p class="text-uppercase font-weight-bold">Text</p>
-        </v-flex>
-        <v-flex xs5>
-          <p class="text-uppercase font-weight-bold">Translate</p>
-        </v-flex>
-        <v-flex xs1>
+  <v-data-table
+    v-model="selected"
+    :headers="headers"
+    :items="listUserDictionary"
+    item-key="id"
+    select-all
+  >
+    <template slot="headers" slot-scope="props">
+      <tr>
+        <th class="header-width-1">
+          <v-checkbox
+            :input-value="props.all"
+            :indeterminate="props.indeterminate"
+            primary
+            hide-details
+            @click.stop="toggleAll"
+          ></v-checkbox>
+        </th>
+        <th></th>
+        <th class="header-width-1">
           <v-btn
-            @click="saveToDictionary(item.id)"
-            small
-            fab
-            dark
-            color="primary"
+            :disabled="selected.length === 0"
+            icon
+            @click="removeFromUserDictionary(selected.map(item=>item.id))"
           >
-            <v-icon dark>save</v-icon>
+            <v-icon>delete</v-icon>
           </v-btn>
-          <v-btn
-          @click="removeFromDictionary(item.id)"
-          small
-          fab
-          dark
-          color="red"
-        >
-          <v-icon dark>remove</v-icon>
-        </v-btn>
-        </v-flex>
-      </v-layout>
-      <v-layout row v-for="item in listDictionary" :key="item.id">
-        <v-flex xs1>
-          <v-checkbox></v-checkbox>
-        </v-flex>
-        <v-flex xs5>
-          <v-text-field v-model="item.text"></v-text-field>
-        </v-flex>
-        <v-flex xs5>
-          <v-text-field v-model="item.translate"></v-text-field>
-        </v-flex>
-      </v-layout>
-    </fragment>
-  </template>
+        </th>
+      </tr>
+    </template>
+    <template slot="items" slot-scope="props">
+      <tr>
+        <td>
+          <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
+        </td>
+        <td
+          @click="props.expanded = !props.expanded"
+          class="text-xs-center"
+        >{{ props.item.text }} — {{ props.item.translate }}</td>
+        <td class="justify-center">
+          <v-btn icon @click="removeFromUserDictionary([props.item.id])">
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </td>
+      </tr>
+    </template>
+    <template slot="expand" slot-scope="props">
+      <v-card flat>
+        <v-card-text>Peek-a-boo!</v-card-text>
+      </v-card>
+    </template>
+  </v-data-table>
+</template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'dictionary',
   props: {
-    listDictionary: {
+    listUserDictionary: {
       type: Array,
       required: true,
     },
   },
+  data: () => ({
+    selected: [],
+    headers: [],
+  }),
   methods: {
-    ...mapActions('dictionaryModule', ['removeCheckedFromDictionary', 'saveCheckedInDictionary']),
+    ...mapActions('userDictionaryModule', ['removeFromUserDictionary']),
+    toggleAll() {
+      if (this.selected.length) {
+        this.selected = [];
+      } else {
+        this.selected = this.listUserDictionary;
+      }
+    },
   },
 };
 
 </script>
+
+<style lang="sass">
+  .header-width-1
+    width: 1%
+</style>

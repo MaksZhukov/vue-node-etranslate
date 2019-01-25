@@ -10,17 +10,24 @@ app.post('/api/add-to-user-dictionary', checkAuth, async (req, res) => {
   if (resAdd.error) {
     res.json(apiResponses.problemDatabase);
   } else {
-    const { id, text, translate } = resAdd;
-    res.json({ id, text, translate });
+    const {
+      id, text, translate, textLang, translateLang,
+    } = resAdd;
+    res.json({
+      ...apiResponses.addToUserDictionary,
+      data: {
+        id, text, translate, textLang, translateLang,
+      },
+    });
   }
 });
 
 app.post('/api/remove-from-user-dictionary', checkAuth, async (req, res) => {
-  const resRemove = await userDictionaryService.remove(req.body.id);
-  if (resRemove.error) {
+  const resRemove = await userDictionaryService.remove(req.body.ids);
+  if (resRemove && resRemove.error) {
     res.json(apiResponses.problemDatabase);
   } else {
-    res.json(resRemove);
+    res.json(apiResponses.removeFromUserDictionary);
   }
 });
 

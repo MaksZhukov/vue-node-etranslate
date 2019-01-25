@@ -1,6 +1,9 @@
 <template>
   <v-list three-line class="no-bg">
-    <v-list-tile-content v-for="(item,key) in dictionary" :key="key">
+    <v-list-tile-content
+      v-for="(item,key) in dictionaryTranslateLang"
+      :key="key"
+    >
       <v-list-tile-title
         class="subheading"
       >{{item.text}} [{{item.ts}}] {{item.pos}}</v-list-tile-title>
@@ -50,9 +53,9 @@ import { mapState } from 'vuex';
 
 
 export default {
-  name: 'dictionaryTranslate',
+  name: 'dictionaryTranslateLang',
   computed: {
-    ...mapState('dictionaryModule', ['dictionary']),
+    ...mapState('dictionaryModule', ['dictionaryTranslateLang']),
   },
   methods: {
     clickChoseWord(text) {

@@ -7,7 +7,7 @@ import dictionaryModule from './modules/dictionary';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     isLoad: false,
     snackBar: {
@@ -34,3 +34,5 @@ export default new Vuex.Store({
     userDictionaryModule,
   },
 });
+
+export default store;

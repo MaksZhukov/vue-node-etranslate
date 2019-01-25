@@ -1,6 +1,6 @@
 import apiUser from '../../api/user';
 import router from '../../router';
-import { setItemsToLocalStorage } from '../../helpers';
+import { setItemsToLocalStorage, checkItemsInLocalStorage } from '../../helpers';
 
 const defaultState = () => ({
   user: null,
@@ -27,7 +27,7 @@ export default {
       state.signInResponse = payload;
     },
     setUser(state, payload) {
-      state.user = { email: payload.email };
+      state.user = { email: payload.email, id: payload.id };
     },
     signUpPending(state, payload) {
       state.signUpResponse = payload;
@@ -143,6 +143,17 @@ export default {
         commit('updateTokensError', error);
         commit('logOut');
       }
+    },
+    async tryUpdateTokens({ dispatch }) {
+      const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
+      if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < (new Date().getTime() + 10000) / 1000) {
+        await dispatch('updateTokens');
+        if (this.user) {
+          return true;
+        }
+        return false;
+      }
+      return true;
     },
     async sendLinkEmailForRecover({ commit }, email) {
       try {

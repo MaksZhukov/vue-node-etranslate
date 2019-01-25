@@ -3,9 +3,9 @@ import userDictionaryModel from '../../models/userDictionary';
 import logger from '../../common/helpers/winston';
 
 class UserDictionary {
-  async add({ userId, translate, text }) {
+  async add(data) {
     try {
-      return await userDictionaryModel.create({ text, translate, userId });
+      return await userDictionaryModel.create(data);
     } catch (err) {
       logger.error(err);
       return { error: true };
@@ -28,6 +28,8 @@ class UserDictionary {
         text: el.text,
         translate: el.translate,
         id: el.id,
+        textLang: el.textLang,
+        translateLang: el.translateLang,
       }));
     } catch (err) {
       logger.error(err);

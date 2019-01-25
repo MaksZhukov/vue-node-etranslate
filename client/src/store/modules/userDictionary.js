@@ -1,97 +1,96 @@
-import apiDictionary from '../../api/userDictionary';
-import { checkItemsInLocalStorage } from '../../helpers';
+import apiUserDictionary from '../../api/userDictionary';
 
 const defaultState = () => ({
-  dictionary: [],
-  getDictionaryResponse: {},
-  addToDictionaryResponse: {},
-  removeFromDictionaryResponse: {},
+  userDictionary: [],
+  getUserDictionaryResponse: {},
+  addToUserDictionaryResponse: {},
+  removeFromUserDictionaryResponse: {},
+  removeSelectedFromUserDictionaryResponse: {},
 });
 
 export default {
   namespaced: true,
   state: defaultState(),
   mutations: {
-    addToDictionaryPending(state, payload) {
+    addToUserDictionaryPending(state, payload) {
       state.addToDictionaryResponse = payload;
     },
-    addToDictionaryError(state, payload) {
+    addToUserDictionaryError(state, payload) {
       state.addToDictionaryResponse = payload;
     },
-    addToDictionarySuccess(state, payload) {
-      state.addToDictionaryResponse = payload;
-      state.dictionary.push(payload);
+    addToUserDictionarySuccess(state, payload) {
+      state.addToUserDictionaryResponse = payload;
+      state.userDictionary.push(payload.data);
     },
-    removeFromDictionaryPending(state, payload) {
-      state.removeFromDictionaryResponse = payload;
+    removeFromUserDictionaryPending(state, payload) {
+      state.removeFromUserDictionaryResponse = payload;
     },
-    removeFromDictionaryError(state, payload) {
-      state.removeFromDictionaryResponse = payload;
+    removeFromUserDictionaryError(state, payload) {
+      state.removeFromUserDictionaryResponse = payload;
     },
-    removeFromDictionarySuccess(state, payload) {
-      state.removeFromDictionaryResponse = payload;
-      state.dictionary = state.dictionary.filter(item => item.id !== payload);
+    removeFromUserDictionarySuccess(state, { response, ids }) {
+      state.removeFromUserDictionaryResponse = response;
+      state.userDictionary = state.userDictionary.filter(item => !ids.includes(item.id));
     },
-    getDictionaryPending(state, payload) {
-      state.getDictionaryResponse = payload;
+    getUserDictionaryPending(state, payload) {
+      state.getUserDictionaryResponse = payload;
     },
-    getDictionaryError(state, payload) {
-      state.getDictionaryResponse = payload;
+    getUserDictionaryError(state, payload) {
+      state.getUserDictionaryResponse = payload;
     },
-    getDictionarySuccess(state, payload) {
-      state.getDictionaryResponse = payload;
-      state.dictionary = payload;
+    getUserDictionarySuccess(state, payload) {
+      state.getUserDictionaryResponse = payload;
+      state.userDictionary = payload;
     },
   },
   actions: {
-    async getDictionary({ commit, rootState, dispatch }) {
+    async getUserDictionary({ commit, rootState }) {
       try {
-        const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
-        if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < new Date().getTime() / 1000) {
-          await dispatch('userModule/updateTokens', {}, { root: true });
-          if (!rootState.userModule.user) {
-            return;
-          }
+        commit('getUserDictionaryPending', { pending: true });
+        const response = await apiUserDictionary.getUserDictionary(rootState.userModule.user.id);
+        if (response.status === 'error') {
+          throw response;
         }
-        commit('getDictionaryPending', { pending: true });
-        const response = await apiDictionary.getDictionary(rootState.userModule.user.id);
-        commit('getDictionarySuccess', response);
+        commit('getUserDictionarySuccess', response);
       } catch (error) {
-        commit('getDictionaryError', error);
+        commit('showSnackBar', { message: error.message, color: 'error' }, { root: true });
+        commit('removeFromUserDictionaryError', error);
       }
     },
-    async removeFromDictionary({ commit, rootState, dispatch }, id) {
+    async removeFromUserDictionary({ commit }, ids) {
+      let response;
       try {
-        const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
-        if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < new Date().getTime() / 1000) {
-          await dispatch('userModule/updateTokens', {}, { root: true });
-          if (!rootState.userModule.user) {
-            return;
-          }
+        commit('removeFromUserDictionaryPending', { pending: true });
+        response = await apiUserDictionary.removeFromUserDictionary(ids);
+        if (response.status === 'error') {
+          throw response;
         }
-        commit('removeFromDictionaryPending', { pending: true });
-        await apiDictionary.removeFromDictionary(id);
-        commit('removeFromDictionarySuccess', id);
+        commit('removeFromUserDictionarySuccess', { response, ids });
       } catch (error) {
-        commit('removeFromDictionaryError', error);
+        commit('removeFromUserDictionaryError', error);
+      }
+      if (response) {
+        commit('showSnackBar', { message: response.message, color: response.status }, { root: true });
       }
     },
-    async addToDictionary({ commit, rootState, dispatch }, { text, translate }) {
+    async addToUserDictionary({ commit, rootState }, {
+      text, translate, textLang, translateLang,
+    }) {
       try {
-        const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
-        if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < new Date().getTime() / 1000) {
-          await dispatch('userModule/updateTokens', {}, { root: true });
-          if (!rootState.userModule.user) {
-            return;
-          }
-        }
-        commit('addToDictionaryPending', { pending: true });
-        const response = await apiDictionary.addToDictionary(
-          { userId: rootState.userModule.user.id, text, translate },
+        commit('addToUserDictionaryPending', { pending: true });
+        const response = await apiUserDictionary.addToUserDictionary(
+          {
+            userId: rootState.userModule.user.id, text, translate, textLang, translateLang,
+          },
         );
-        commit('addToDictionarySuccess', response);
+        if (response.status === 'error') {
+          throw response;
+        }
+        commit('addToUserDictionarySuccess', response);
+        commit('showSnackBar', { message: response.message, color: response.status }, { root: true });
       } catch (error) {
-        commit('addToDictionaryError', error);
+        commit('showSnackBar', { message: error.message, color: 'error' }, { root: true });
+        commit('addToUserDictionaryError', error);
       }
     },
   },

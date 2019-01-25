@@ -3,8 +3,8 @@ import { cacheDictionary, queryString } from '../../helpers';
 
 const defaultState = () => ({
   getDictionaryResponse: {},
-  dictionary: [],
-  dictionaryFromLang: [],
+  dictionaryTranslateLang: [],
+  dictionaryTextLang: [],
 });
 
 export default {
@@ -19,24 +19,26 @@ export default {
     },
     getDictionarySuccess(state, payload) {
       state.getDictionaryResponse = payload;
-      state.dictionary = payload.dictionary.def;
-      state.dictionaryFromLang = payload.dictionaryFromLang.def;
+      state.dictionaryTranslateLang = payload.dictionaryTranslateLang.def;
+      state.dictionaryTextLang = payload.dictionaryTextLang.def;
     },
     clearDictionaries(state) {
-      state.dictionary = [];
-      state.dictionaryFromLang = [];
+      state.dictionaryTranslateLang = [];
+      state.dictionaryTextLang = [];
     },
   },
   actions: {
-    async getDictionary({ commit }, { text, from, to }) {
+    async getDictionary({ commit }, { text, textLang, translateLang }) {
       try {
         commit('getDictionaryPending', { pending: true });
         let response;
-        if (cacheDictionary.get(`${text}-${to}`)) {
-          response = cacheDictionary.get(`${text}-${to}`);
+        if (cacheDictionary.get(`${text}-${textLang}-${translateLang}`)) {
+          response = cacheDictionary.get(`${text}-${textLang}-${translateLang}`);
         } else {
-          response = await apiTranslate.getDictionary(queryString({ text, from, to }));
-          cacheDictionary.set(`${text}-${to}`, response);
+          response = await apiTranslate.getDictionary(
+            queryString({ text: encodeURIComponent(text), textLang, translateLang }),
+          );
+          cacheDictionary.set(`${text}-${textLang}-${translateLang}`, response);
         }
         if (response.status === 'error') {
           throw response;

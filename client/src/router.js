@@ -93,7 +93,7 @@ const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
   let isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
-  if (to.path === '/' && !isTokensAndExpiresIn) {
+  if (to.path === '/' && !isTokensAndExpiresIn && Object.keys(to.query).length > 0) {
     const { accessToken, refreshToken, expiresIn } = to.query;
     setItemsToLocalStorage({ accessToken, refreshToken, expiresIn });
     isTokensAndExpiresIn = true;
@@ -104,9 +104,7 @@ router.beforeEach(async (to, from, next) => {
     store.commit('userModule/logOut');
     return;
   }
-  if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < (new Date().getTime() + 10000) / 1000) {
-    await store.dispatch('userModule/updateTokens');
-  }
+  await store.dispatch('userModule/tryUpdateTokens');
   if (user && user.id) {
     access = true;
   } else if (Object.keys(checkTokenResponse).length === 0 && isTokensAndExpiresIn) {

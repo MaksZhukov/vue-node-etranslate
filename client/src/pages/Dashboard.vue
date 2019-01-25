@@ -5,37 +5,48 @@
         <v-layout align-center>
           <v-flex xs6 md4>
             <v-select
-              v-model="from"
-              :hint="`${from.state}, ${from.abbr}`"
-              :items="languagesFrom"
-              item-text="state"
+              v-model="textLang"
+              :hint="`${textLang.name}, ${textLang.abbr}`"
+              :items="languagesTextLang"
+              item-text="name"
               item-value="abbr"
               persistent-hint
               return-object
               single-line
-              @change="updateListLanguagesFrom"
+              @change="updateListLanguagesTextLang(); getTranslateAndDictionary()"
+              abbr
               class="mb-3"
             ></v-select>
           </v-flex>
           <v-spacer></v-spacer>
           <v-flex shrink>
-            <voice-pronunciation :text="inputText" :lang="from.abbr"></voice-pronunciation>
-            <voice-recorder
-              @onResultVoiceRecorder="handleResultVoiceRecorder"
-              :from="from"
-              :to="to"
-            ></voice-recorder>
-            <v-btn icon @click="isShowKeyBoard = !isShowKeyBoard">
-              <v-icon :color="isShowKeyBoard ? 'red' : 'black'">keyboard</v-icon>
-            </v-btn>
-            <v-btn
-              :disabled="translateResponse.pending || getDictionaryResponse.pending"
-              :loading="translateResponse.pending || getDictionaryResponse.pending"
-              @click="switchLanguages(); getTranslateAndDictionary()"
-              icon
-            >
-              <v-icon>fas fa-exchange-alt</v-icon>
-            </v-btn>
+            <voice-pronunciation
+              :voices="voices"
+              :text="inputText"
+              :lang="textLang.abbr"
+            ></voice-pronunciation>
+            <voice-recorder @onResultVoiceRecorder="handleResultVoiceRecorder"></voice-recorder>
+            <v-tooltip bottom>
+              <v-btn
+                slot="activator"
+                icon
+                @click="isShowKeyboard = !isShowKeyboard"
+                :disabled="disabledKeyboard"
+              >
+                <v-icon :color="isShowKeyboard ? 'red' : 'black'">keyboard</v-icon>
+              </v-btn>Show keyboard
+            </v-tooltip>
+            <v-tooltip bottom>
+              <v-btn
+                slot="activator"
+                :disabled="translateResponse.pending || getDictionaryResponse.pending"
+                :loading="translateResponse.pending || getDictionaryResponse.pending"
+                @click="switchLanguages(); getTranslateAndDictionary()"
+                icon
+              >
+                <v-icon>fas fa-exchange-alt</v-icon>
+              </v-btn>Swap languages
+            </v-tooltip>
           </v-flex>
         </v-layout>
         <v-textarea
@@ -45,54 +56,63 @@
           counter
           auto-grow
           @input="delay(getTranslateAndDictionary,delayTranslate)"
-          :label="from.state"
+          :label="textLang.name"
           v-model="inputText"
         ></v-textarea>
-        <dictionary-from-lang @clickChoseSyn="handleClickChoseWord"></dictionary-from-lang>
+        <dictionary-text-lang @clickChoseSyn="handleClickChoseWord"></dictionary-text-lang>
       </v-flex>
       <v-flex xs6>
         <v-layout align-center>
           <v-flex xs6 md4>
             <v-select
-              v-model="to"
-              :hint="`${to.state}, ${to.abbr}`"
-              :items="languagesTo"
-              item-text="state"
+              v-model="translateLang"
+              :hint="`${translateLang.name}, ${translateLang.abbr}`"
+              :items="languagesTranslateLang"
+              item-text="name"
               item-value="abbr"
               persistent-hint
               return-object
               single-line
-              @change="updateListLanguagesTo();inputText && getTranslateAndDictionary()"
+              @change="updateListLanguagesTranslateLang(); getTranslateAndDictionary()"
               class="mb-3"
             ></v-select>
           </v-flex>
           <v-spacer></v-spacer>
           <v-flex shrink>
-            <voice-pronunciation :text="outputText" :lang="to.abbr"></voice-pronunciation>
+            <voice-pronunciation
+              :voices="voices"
+              :text="outputText"
+              :lang="translateLang.abbr"
+            ></voice-pronunciation>
           </v-flex>
         </v-layout>
         <v-textarea
+          :append-icon="!outputText ? '' : getUserDictionaryWord(inputText) ?
+           'star': 'star_border'"
+          :append-icon-cb="handleClickAppendIcon"
           outline
           counter
           readonly
           auto-grow
           :placeholder="translateResponse.pending ? 'Loading' : ''"
-          :label="to.state"
+          :label="translateLang.name"
           v-model="outputText"
         ></v-textarea>
-        <dictionary-translate
+        <dictionary-translate-lang
           @clickChoseWord="handleClickChoseWord"
           @clickChoseWordAnotherLang="switchLanguages(); handleClickChoseWord($event)"
-        ></dictionary-translate>
+        ></dictionary-translate-lang>
       </v-flex>
     </v-layout>
     <v-layout justify-center>
       <v-flex xs10 md8 lg6>
         <virtual-keyboard
-          v-show="isShowKeyBoard"
+          v-show="isShowKeyboard"
           :inputText="inputText"
+          :translateLang="textLang.abbr"
           @onChange="handleOnChangeVirtualKeyboard"
-          @onEnter="getTranslateAndDictionary()"
+          @onEnter="handleOnEnterVirtualKeyboard"
+          @supportLang="handleSupportLang"
         ></virtual-keyboard>
       </v-flex>
     </v-layout>
@@ -104,31 +124,37 @@
 import { mapState, mapActions, mapMutations } from 'vuex';
 import VirtualKeyboard from '../components/VirtualKeyboard.vue';
 import { LANGUAGES, DELAY_TRANSLATE } from '../constants';
-import { checkItemsInLocalStorage } from '../helpers';
 import VoiceRecorder from '../components/VoiceRecorder.vue';
 import VoicePronunciation from '../components/VoicePronunciation.vue';
-import DictionaryTranslate from '../components/DictionaryTranslate.vue';
-import DictionaryFromLang from '../components/DictionaryFromLang.vue';
+import DictionaryTextLang from '../components/DictionaryTextLang.vue';
+import DictionaryTranslateLang from '../components/DictionaryTranslateLang.vue';
 
 export default {
   name: 'Dashboard',
   components: {
-    VoiceRecorder, DictionaryTranslate, DictionaryFromLang, VoicePronunciation, VirtualKeyboard,
+    VoiceRecorder, DictionaryTextLang, DictionaryTranslateLang, VoicePronunciation, VirtualKeyboard,
   },
   data: () => ({
-    languagesFrom: LANGUAGES,
-    languagesTo: LANGUAGES,
+    languagesTextLang: LANGUAGES,
+    languagesTranslateLang: LANGUAGES,
     delayTimer: 0,
     delayTranslate: DELAY_TRANSLATE,
-    isShowKeyBoard: false,
+    isShowKeyboard: false,
+    disabledKeyboard: false,
+    voices: [],
   }),
   created() {
+    this.getUserDictionary();
     this.runTranslateQueryUrl(this.$route.query);
+    if (window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = this.handleVoicesChanged;
+    }
   },
   computed: {
     ...mapState('userModule', ['user']),
-    ...mapState('translateModule', ['outputText', 'translateResponse']),
+    ...mapState('translateModule', ['translateResponse']),
     ...mapState('dictionaryModule', ['getDictionaryResponse']),
+    ...mapState('userDictionaryModule', ['userDictionary']),
     inputText: {
       get() {
         return this.$store.state.translateModule.inputText;
@@ -137,37 +163,57 @@ export default {
         this.$store.commit('translateModule/updateInputText', text);
       },
     },
-    from: {
+    outputText: {
       get() {
-        return this.$store.state.translateModule.from;
+        return this.$store.state.translateModule.outputText;
       },
-      set(lang) {
-        this.$store.commit('translateModule/updateFrom', lang);
+      set(text) {
+        this.$store.commit('translateModule/updateOutputText', text);
       },
     },
-    to: {
+    textLang: {
       get() {
-        return this.$store.state.translateModule.to;
+        return this.$store.state.translateModule.textLang;
       },
       set(lang) {
-        this.$store.commit('translateModule/updateTo', lang);
+        this.$store.commit('translateModule/updateTextLang', lang);
+      },
+    },
+    translateLang: {
+      get() {
+        return this.$store.state.translateModule.translateLang;
+      },
+      set(lang) {
+        this.$store.commit('translateModule/updateTranslateLang', lang);
       },
     },
   },
   methods: {
     ...mapActions('translateModule', ['translate']),
     ...mapActions('dictionaryModule', ['getDictionary']),
+    ...mapActions('userDictionaryModule', ['addToUserDictionary', 'removeFromUserDictionary', 'getUserDictionary']),
     ...mapMutations('dictionaryModule', ['clearDictionaries']),
     ...mapMutations('translateModule', ['clearOutputText', 'switchChosenLanguages']),
     async getTranslateAndDictionary() {
       if (this.inputText) {
-        const isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
-        if (isTokensAndExpiresIn && localStorage.getItem('expiresIn') < (new Date().getTime() + 10000) / 1000) {
-          await this.$store.dispatch('userModule/updateTokens');
-        }
-        this.translate({ text: this.inputText, from: this.from.abbr, to: this.to.abbr });
-        this.getDictionary({ text: this.inputText, from: this.from.abbr, to: this.to.abbr });
-        this.$router.push({ path: 'dashboard', query: { text: this.inputText, from: this.from.abbr, to: this.to.abbr } });
+        this.translate({
+          text: this.inputText,
+          textLang: this.textLang.abbr,
+          translateLang: this.translateLang.abbr,
+        });
+        this.getDictionary({
+          text: this.inputText,
+          textLang: this.textLang.abbr,
+          translateLang: this.translateLang.abbr,
+        });
+        this.$router.push({
+          path: 'dashboard',
+          query: {
+            text: this.inputText,
+            textLang: this.textLang.abbr,
+            translateLang: this.translateLang.abbr,
+          },
+        });
       }
     },
     delay(callback, ms) {
@@ -176,24 +222,25 @@ export default {
         callback();
       }, ms);
     },
-    updateListLanguagesFrom() {
-      this.languagesTo = LANGUAGES.map((lang) => {
-        if (lang.abbr === this.from.abbr) {
+    updateListLanguagesTextLang() {
+      this.languagesTranslateLang = LANGUAGES.map((lang) => {
+        if (lang.abbr === this.textLang.abbr) {
           return { ...lang, disabled: true };
         }
         return lang;
       });
     },
-    updateListLanguagesTo() {
-      this.languagesFrom = LANGUAGES.map((lang) => {
-        if (lang.abbr === this.to.abbr) {
+    updateListLanguagesTranslateLang() {
+      this.languagesTextLang = LANGUAGES.map((lang) => {
+        if (lang.abbr === this.translateLang.abbr) {
           return { ...lang, disabled: true };
         }
         return lang;
       });
     },
     switchLanguages() {
-      [this.languagesFrom, this.languagesTo] = [this.languagesTo, this.languagesFrom];
+      [this.languagesTextLang,
+        this.languagesTranslateLang] = [this.languagesTranslateLang, this.languagesTextLang];
       this.switchChosenLanguages();
     },
     handleResultVoiceRecorder(text) {
@@ -207,16 +254,53 @@ export default {
     handleOnChangeVirtualKeyboard(text) {
       this.inputText = text;
     },
+    handleOnEnterVirtualKeyboard() {
+      this.getTranslateAndDictionary();
+      this.$router.push({
+        path: 'dashboard',
+        query: {
+          text: this.inputText,
+          textLang: this.textLang.abbr,
+          translateLang: this.translateLang.abbr,
+        },
+      });
+    },
+    handleSupportLang(support) {
+      if (support) {
+        this.disabledKeyboard = false;
+      } else {
+        this.isShowKeyboard = false;
+        this.disabledKeyboard = true;
+      }
+    },
+    handleClickAppendIcon() {
+      const wordD = this.getUserDictionaryWord(this.inputText);
+      if (wordD) {
+        this.removeFromUserDictionary(wordD.id);
+      } else {
+        this.addToUserDictionary({
+          text: this.inputText,
+          translate: this.outputText,
+          textLang: this.textLang.abbr,
+          translateLang: this.translateLang.abbr,
+        });
+      }
+    },
+    getUserDictionaryWord(word) {
+      return this.userDictionary.find(dWord => dWord.text === word);
+    },
     runTranslateQueryUrl(query) {
-      const { text, to, from } = query;
-      if (text && to && from) {
-        const resFrom = this.languagesFrom.find(lang => lang.abbr === from);
-        const resTo = this.languagesTo.find(lang => lang.abbr === to);
-        if (!resFrom || !resTo) {
+      const { text, translateLang, textLang } = query;
+      if (text !== undefined && translateLang && textLang) {
+        const resTextLang = this.languagesTextLang.find(lang => lang.abbr === textLang);
+        const resTranslateLang = this.languagesTranslateLang.find(
+          lang => lang.abbr === translateLang,
+        );
+        if (!resTextLang || !resTranslateLang) {
           this.$router.push('dashboard');
         } else {
-          this.to = resTo;
-          this.from = resFrom;
+          this.translateLang = resTranslateLang;
+          this.textLang = resTextLang;
           this.inputText = text;
           this.getTranslateAndDictionary();
         }
@@ -225,8 +309,11 @@ export default {
         this.clearOutputText();
         this.clearDictionaries();
       }
-      this.updateListLanguagesTo();
-      this.updateListLanguagesFrom();
+      this.updateListLanguagesTranslateLang();
+      this.updateListLanguagesTextLang();
+    },
+    handleVoicesChanged() {
+      this.voices = window.speechSynthesis.getVoices();
     },
   },
   watch: {
@@ -239,6 +326,26 @@ export default {
     },
     '$route.query': function (query) {
       this.runTranslateQueryUrl(query);
+    },
+    textLang(val) {
+      this.$router.push({
+        path: 'dashboard',
+        query: {
+          text: this.inputText,
+          textLang: val.abbr,
+          translateLang: this.translateLang.abbr,
+        },
+      });
+    },
+    translateLang(val) {
+      this.$router.push({
+        path: 'dashboard',
+        query: {
+          text: this.inputText,
+          textLang: this.textLang.abbr,
+          translateLang: val.abbr,
+        },
+      });
     },
   },
 };

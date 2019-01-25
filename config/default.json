@@ -55,9 +55,13 @@
       }
     },
     "passport": {
-      "google":    {
+      "google": {
           "clientID": "850216707923-lrnh65b8u14ksd7begdjttillsnu7shk.apps.googleusercontent.com",
           "clientSecret": "C3MVQfBDzLHhHTlz6OjTa1cv"
+      },
+      "yandex": {
+        "clientID": "a5391eeec28a414f84dcce19c38d10f0",
+        "clientSecret": "31de33aa34524694affb287e2223485e"
       }
     },
     "apiResponses": {
@@ -72,6 +76,8 @@
       "emailNoVerify": {"status": "warning", "message": "email hasn't been verify"},
       "recoverPasswordEmail": {"status": "success", "message": "check your email"},
       "changePassword": {"status":"success", "message": "password has been changed"},
+      "addToUserDictionary": {"status":"success", "message": "the translate has added to your dictionary"},
+      "removeFromUserDictionary": {"status":"success", "message": "the translate has removed from your dictionary"},
       "expireRecoverToken": {"status":"error", "message": "create new link"},
       "sentRecoverMessage": {"status": "warning", "message": "recover link has been sent"},
       "sentRecoverProvider": {"status": "warning", "message": "the email has been authorization with"}

@@ -5,6 +5,12 @@
 <script>
 
 import Keyboard from 'simple-keyboard';
+import ru from 'simple-keyboard-layouts/build/layouts/russian';
+import it from 'simple-keyboard-layouts/build/layouts/italian';
+import de from 'simple-keyboard-layouts/build/layouts/german';
+import zh from 'simple-keyboard-layouts/build/layouts/chinese';
+import fr from 'simple-keyboard-layouts/build/layouts/french';
+import en from 'simple-keyboard-layouts/build/layouts/english';
 import 'simple-keyboard/build/css/index.css';
 
 
@@ -12,31 +18,23 @@ export default {
   name: 'virtualKeyboard',
   props: {
     inputText: [String, null],
+    fromAbbr: String,
   },
   data: () => ({
     keyboard: null,
+    layouts: {
+      ru, zh, en, de, fr, it,
+    },
   }),
   mounted() {
+    this.removeComAndDogSymbol();
     this.keyboard = new Keyboard({
       onChange: this.onChange,
       onKeyPress: this.onKeyPress,
-      layout: {
-        default: [
-          '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
-          '{tab} q w e r t y u i o p [ ] \\',
-          '{lock} a s d f g h j k l ; \' {enter}',
-          '{shift} z x c v b n m , . / {shift}',
-          '{space}',
-        ],
-        shift: [
-          '~ ! @ # $ % ^ & * ( ) _ + {bksp}',
-          '{tab} Q W E R T Y U I O P { } |',
-          '{lock} A S D F G H J K L : " {enter}',
-          '{shift} Z X C V B N M < > ? {shift}',
-          '{space}',
-        ],
-      },
+      layout: this.layouts.en,
+      text: this.inputText,
     });
+    this.keyboard.setInput(this.inputText);
   },
   methods: {
     onChange(input) {
@@ -58,11 +56,28 @@ export default {
         layoutName: shiftToggle,
       });
     },
+    removeComAndDogSymbol() {
+      Object.keys(this.layouts).forEach((lang) => {
+        this.layouts[lang].default[4] = this.layouts[lang].default[4].replace('.com @ ', '');
+        this.layouts[lang].shift[4] = this.layouts[lang].shift[4].replace('.com @ ', '');
+      });
+    },
   },
   watch: {
     inputText(text) {
       this.keyboard.setInput(text);
     },
+    translateLang(abbr) {
+      if (this.layouts[abbr]) {
+        this.keyboard.setOptions({
+          layout: this.layouts[abbr],
+        });
+        this.$emit('supportLang', true);
+      } else {
+        this.$emit('supportLang', false);
+      }
+    },
+
   },
 };
 </script>

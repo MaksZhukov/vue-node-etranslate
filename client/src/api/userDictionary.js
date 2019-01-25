@@ -1,4 +1,4 @@
-const addToDictionary = data => fetch('api/add-to-dictionary', {
+const addToUserDictionary = data => fetch('api/add-to-user-dictionary', {
   method: 'POST',
   headers: {
     Accept: 'application/json',
@@ -8,17 +8,17 @@ const addToDictionary = data => fetch('api/add-to-dictionary', {
   body: JSON.stringify(data),
 }).then(response => response.json());
 
-const removeFromDictionary = id => fetch('api/remove-from-dictionary', {
+const removeFromUserDictionary = ids => fetch('api/remove-from-user-dictionary', {
   method: 'POST',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
   },
-  body: JSON.stringify({ id }),
+  body: JSON.stringify({ ids }),
 }).then(response => response.json());
 
-const getDictionary = userId => fetch('api/get-dictionary', {
+const getUserDictionary = userId => fetch('api/get-user-dictionary', {
   method: 'POST',
   headers: {
     Accept: 'application/json',
@@ -29,7 +29,8 @@ const getDictionary = userId => fetch('api/get-dictionary', {
 }).then(response => response.json());
 
 export default {
-  addToDictionary,
-  getDictionary,
-  removeFromDictionary,
+  addToUserDictionary,
+  getUserDictionary,
+  removeFromUserDictionary,
+
 };

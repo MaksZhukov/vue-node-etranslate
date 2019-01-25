@@ -11,6 +11,9 @@ describe('ProfileBar component', () => {
   let mutations;
   const email = 'example@mail.ru';
   beforeEach(() => {
+    const el = document.createElement('div');
+    el.setAttribute('data-app', true);
+    document.body.appendChild(el);
     const localVue = createLocalVue();
     localVue.use(Vuetify);
     localVue.use(Vuex);
@@ -43,7 +46,7 @@ describe('ProfileBar component', () => {
   });
   it('profilebar has logout and dashboard link', () => {
     const arrayA = wrapper.findAll('a');
-    expect(arrayA.at(1).text()).toContain('Dashboard');
+    expect(arrayA.at(0).text()).toContain('Dashboard');
     expect(arrayA.at(2).text()).toContain('Logout');
   });
   it('profilebar click logout was execute', () => {

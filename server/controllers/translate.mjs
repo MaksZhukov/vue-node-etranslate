@@ -6,8 +6,8 @@ import { checkAuth } from '../middlewares';
 const { server: { apiResponses } } = config;
 
 app.get('/api/translate', checkAuth, async (req, res) => {
-  const { from, to, text } = req.query;
-  const resTranslate = await translateService.translate({ from, to, text });
+  const { textLang, translateLang, text } = req.query;
+  const resTranslate = await translateService.translate({ textLang, translateLang, text });
   if (resTranslate.error) {
     res.json(apiResponses.problemTranslate);
   } else {

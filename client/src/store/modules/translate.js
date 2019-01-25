@@ -4,8 +4,8 @@ import { cacheTranslate, queryString } from '../../helpers';
 const defaultState = () => ({
   inputText: '',
   outputText: '',
-  from: { state: 'English', abbr: 'en' },
-  to: { state: 'Русский', abbr: 'ru' },
+  textLang: { name: 'English', abbr: 'en' },
+  translateLang: { name: 'Русский', abbr: 'ru' },
   translateResponse: {},
 });
 
@@ -30,16 +30,19 @@ export default {
     },
     switchChosenLanguages(state) {
       [state.inputText, state.outputText] = [state.outputText, state.inputText];
-      [state.from, state.to] = [state.to, state.from];
+      [state.textLang, state.translateLang] = [state.translateLang, state.textLang];
     },
     updateInputText(state, text) {
       state.inputText = text;
     },
-    updateFrom(state, lang) {
-      state.from = lang;
+    updateOutputText(state, text) {
+      state.outputText = text;
     },
-    updateTo(state, lang) {
-      state.to = lang;
+    updateTextLang(state, lang) {
+      state.textLang = lang;
+    },
+    updateTranslateLang(state, lang) {
+      state.translateLang = lang;
     },
     clearOutputText(state) {
       state.outputText = '';
@@ -47,15 +50,20 @@ export default {
     },
   },
   actions: {
-    async translate({ commit }, { text, from, to }) {
+    async translate({ commit }, { text, textLang, translateLang }) {
       try {
         commit('translatePending', { pending: true });
         let response;
-        if (cacheTranslate.get(`${text}-${to}`)) {
-          response = cacheTranslate.get(`${text}-${to}`);
+        if (cacheTranslate.get(`${text}-${textLang}-${translateLang}`)) {
+          response = cacheTranslate.get(`${text}-${textLang}-${translateLang}`);
         } else {
-          response = await apiTranslate.translate(queryString({ text, from, to }));
-          cacheTranslate.set(`${text}-${to}`, response);
+          response = await apiTranslate.translate(queryString({
+            text:
+               encodeURIComponent(text),
+            textLang,
+            translateLang,
+          }));
+          cacheTranslate.set(`${text}-${textLang}-${translateLang}`, response);
         }
         if (response.status === 'error') {
           throw response;

@@ -1,29 +1,26 @@
 <template>
-  <fragment>
-    <v-menu offset-y>
-      <v-btn slot="activator" flat>
-        {{email}}
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-      <v-list>
-        <v-list-tile @click.stop>
-          <router-link to="/dashboard" class="black--text">Dashboard</router-link>
-        </v-list-tile>
-        <v-list-tile @click.stop>
-          <router-link to="/dictionary" class="black--text">Dictionary</router-link>
-        </v-list-tile>
-        <v-list-tile @click="logOut">
-          <v-list-tile-title>Logout</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-menu>
-  </fragment>
+  <v-menu offset-y>
+    <v-btn slot="activator" flat>
+      {{email}}
+      <v-icon>more_vert</v-icon>
+    </v-btn>
+    <v-list>
+      <v-list-tile
+        :to="{ name: 'dashboard', query: textLang.abbr && translateLang && inputText ? { text: inputText,
+        textLang: textLang.abbr, translateLang: translateLang.abbr } : {}}"
+      >Dashboard</v-list-tile>
+      <v-list-tile to="/dictionary">Dictionary</v-list-tile>
+      <v-list-tile @click="logOut">
+        <v-list-tile-title>Logout</v-list-tile-title>
+      </v-list-tile>
+    </v-list>
+  </v-menu>
 </template>
 
 
 <script>
 
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'profileBar',
@@ -32,6 +29,9 @@ export default {
       type: String,
       required: true,
     },
+  },
+  computed: {
+    ...mapState('translateModule', ['inputText', 'textLang', 'translateLang']),
   },
   methods: {
     ...mapMutations('userModule', ['logOut']),
