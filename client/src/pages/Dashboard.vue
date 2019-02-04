@@ -145,7 +145,10 @@ export default {
   }),
   created() {
     this.getUserDictionary();
-    this.runTranslateQueryUrl(this.$route.query);
+    const { text, translateLang, textLang } = this.$route.query;
+    if (text !== undefined && translateLang && textLang) {
+      this.runTranslateQueryUrl(this.$route.query);
+    }
     if (window.speechSynthesis) {
       window.speechSynthesis.onvoiceschanged = this.handleVoicesChanged;
     }
