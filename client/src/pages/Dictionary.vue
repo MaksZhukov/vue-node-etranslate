@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <v-layout row justify-center>
-      <v-flex sm8>
+      <v-flex sm12>
         <list-dictionary :listUserDictionary="userDictionary"></list-dictionary>
       </v-flex>
     </v-layout>
@@ -24,10 +24,10 @@ export default {
     this.getUserDictionary();
   },
   computed: {
-    ...mapState('userDictionaryModule', ['userDictionary', 'addToUserDictionaryResponse']),
+    ...mapState('userDictionaryModule', ['userDictionary']),
   },
   methods: {
-    ...mapActions('userDictionaryModule', ['getUserDictionary', 'addToUserDictionary', 'removeFromUserDictionary']),
+    ...mapActions('userDictionaryModule', ['getUserDictionary']),
   },
 
 };

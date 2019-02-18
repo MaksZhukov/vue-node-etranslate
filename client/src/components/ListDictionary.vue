@@ -99,8 +99,7 @@
           <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
         </td>
         <td
-          @click="handleExpand(props)"
-          class="text-xs-center c-pointer"
+          class="text-xs-center"
         >{{ props.item.text }} — {{ props.item.translate }}</td>
         <td class="justify-center">
           <v-btn icon @click="removeFromUserDictionary([props.item.id])">
@@ -108,11 +107,6 @@
           </v-btn>
         </td>
       </tr>
-    </template>
-    <template slot="expand" slot-scope="props">
-      <v-card flat>
-        <v-card-text>Peek-a-boo!</v-card-text>
-      </v-card>
     </template>
   </v-data-table>
 </template>
@@ -146,17 +140,11 @@ export default {
       if (this.selected.length) {
         this.selected = [];
       } else {
-        this.selected = this.listUserDictionary;
+        this.selected = this.filter(this.listUserDictionary, this.search);
       }
     },
     disableDeleteAndToggleAll(flag) {
       this.disabledDeleteAndToogleAll = flag;
-    },
-    handleExpand(props) {
-      props.expanded = !props.expanded;
-      if (props.expanded) {
-        this.$emit('updateListUserDictionary', props.id);
-      }
     },
     filter(items, search) {
       const { langsText, langsTranslate } = this.filters;
@@ -175,6 +163,4 @@ export default {
 <style lang="sass">
   .header-width-1
     width: 1%
-  .c-pointer
-    cursor: pointer
 </style>
