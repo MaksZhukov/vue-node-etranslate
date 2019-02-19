@@ -1,5 +1,14 @@
 {
   "client": {
     "port": 3000
+  },
+  "server": {
+    "dbConfig":{
+        "user": "etranslate",
+        "host": "ec2-23-21-128-35.compute-1.amazonaws.com",
+        "database": "exyljaxasuenub",
+        "password": "e226d97fbc960779ee2d09a2ba5d4ea685cebf5e38f685ee36e87e64dc9fd1c1",
+        "port": "5432"
+      }
   }
 }
