@@ -14,6 +14,9 @@ const sequelize = new Sequelize(dbConfig.database,
       acquire: 30000,
       idle: 10000,
     },
+    dialectOptions: {
+      ssl: true,
+    },
     operatorsAliases: false,
     logging: false,
   });
