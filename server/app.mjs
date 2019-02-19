@@ -9,6 +9,7 @@ import scheduleService from './bll/services/schedule';
 
 
 const { server: serverConf } = config;
+const port = process.env.PORT || serverConf.port;
 
 
 const app = express();
@@ -23,8 +24,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.disable('x-powered-by');
 
-app.listen(serverConf.port, () => {
-  console.log(`app listening at port ${serverConf.port}`);
+app.listen(port, () => {
+  console.log(`app listening at port ${port}`);
   scheduleService.startSchedule();
 });
 
