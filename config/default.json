@@ -1,10 +1,11 @@
 {
   "client": {
-    "port": 3001
+    "port": 3001,
+    "origin": "http://localhost:3001"
   },
   "server": {
     "port": 3000,
-    "origin": "http://localhost",
+    "origin": "http://localhost:3000",
     "dbConfig":{
       "user": "etranslate",
       "host": "localhost",

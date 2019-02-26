@@ -10,7 +10,7 @@ const {
     passport: {
       google: googleConfig,
       yandex: yandexConfig,
-    }, origin, port,
+    }, origin,
   },
 } = config;
 const { OAuth2Strategy: GoogleStrategy } = passportGoogle;
@@ -27,7 +27,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GoogleStrategy({
   clientID: googleConfig.clientID,
   clientSecret: googleConfig.clientSecret,
-  callbackURL: `${origin}:${port}/api/auth/google/callback`,
+  callbackURL: `${origin}/api/auth/google/callback`,
 },
 async (accessToken, refreshToken, profile, done) => {
   const { emails: [{ value: email }], provider } = profile;
@@ -43,10 +43,9 @@ async (accessToken, refreshToken, profile, done) => {
 passport.use(new YandexStrategy({
   clientID: yandexConfig.clientID,
   clientSecret: yandexConfig.clientSecret,
-  callbackURL: `${origin}:${port}/api/auth/yandex/callback`,
+  callbackURL: `${origin}/api/auth/yandex/callback`,
 },
 async (accessToken, refreshToken, profile, done) => {
-  console.log(profile);
   const { emails: [{ value: email }], provider } = profile;
   const resFind = await userService.find({ email });
   if (!resFind) {

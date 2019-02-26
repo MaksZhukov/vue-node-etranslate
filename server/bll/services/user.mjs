@@ -6,8 +6,7 @@ import transporter from '../../common/helpers/mail';
 import UserModel from '../../models/user';
 
 const {
-  server: { jwt: jwtConfig, origin, port: portServer },
-  client: { port: portClient },
+  server: { jwt: jwtConfig, origin },
 } = config;
 
 class UserService {
@@ -67,13 +66,13 @@ class UserService {
   createLinkVerify(payload) {
     const verifyEmailToken = jwt.sign(payload, jwtConfig.verifyEmailTokenSecret,
       { expiresIn: jwtConfig.verifyEmailTokenLife });
-    return `<a href="${origin}:${portServer}/api/verify-email/${verifyEmailToken}">verify your email</a>`;
+    return `<a href="${origin}/api/verify-email/${verifyEmailToken}">verify your email</a>`;
   }
 
   createLinkRecover(payload) {
     const recoverPasswordToken = jwt.sign(payload, jwtConfig.recoverPasswordTokenSecret,
       { expiresIn: jwtConfig.recoverPasswordTokenLife });
-    return `<a href="${origin}:${portClient}/recover/${recoverPasswordToken}">link for recover</a>`;
+    return `<a href="${origin}/recover/${recoverPasswordToken}">link for recover</a>`;
   }
 
   getTokensAndExpiresIn(payload) {

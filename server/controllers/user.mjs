@@ -8,9 +8,9 @@ import { encrypt } from '../common/helpers/crypto';
 
 const {
   server: {
-    apiResponses, mail: { messages: emailMessages }, origin,
+    apiResponses, mail: { messages: emailMessages },
   },
-  client: { port: portClient },
+  client: { origin: originClient },
 } = config;
 
 
@@ -53,7 +53,7 @@ app.get('/api/verify-email/:verifyToken', async (req, res) => {
   } catch (err) {
     logger.error(err);
   }
-  res.redirect(`${origin}:${portClient}/sign-in`);
+  res.redirect(`${originClient}/sign-in`);
 });
 
 app.post('/api/sign-in', async (req, res) => {
@@ -94,7 +94,7 @@ app.get('/api/auth/google/callback', passport.authenticate('google', { failureRe
   const { email, id } = req.user;
   const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn({ email, id });
   await userService.update({ refreshToken }, { email });
-  res.redirect(`${origin}:${portClient}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`);
+  res.redirect(`${originClient}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`);
 });
 
 app.get('/api/auth/yandex', passport.authenticate('yandex'));
@@ -103,7 +103,7 @@ app.get('/api/auth/yandex/callback', passport.authenticate('yandex', { failureRe
   const { email, id } = req.user;
   const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn({ email, id });
   await userService.update({ refreshToken }, { email });
-  res.redirect(`${origin}:${portClient}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`);
+  res.redirect(`${originClient}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`);
 });
 
 app.post('/api/check-token', checkAuth, (req, res) => {
