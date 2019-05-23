@@ -28,3 +28,21 @@
 2019-02-21T09:59:02.239Z error: The server does not support SSL connections
 2019-02-21T09:59:29.981Z error: relation "users" does not exist
 2019-02-21T09:59:29.986Z error: relation "users" does not exist
+2019-05-22T10:55:47.913Z error: The server does not support SSL connections
+2019-05-22T10:55:47.913Z error: The server does not support SSL connections
+2019-05-22T10:57:21.912Z error: The server does not support SSL connections
+2019-05-22T10:57:21.912Z error: The server does not support SSL connections
+2019-05-22T10:59:09.043Z warn: jwt expired
+2019-05-22T10:59:09.098Z warn: jwt malformed
+2019-05-22T11:21:00.840Z warn: secretOrPrivateKey must have a value
+2019-05-22T11:21:23.383Z warn: secretOrPrivateKey must have a value
+2019-05-22T11:22:25.787Z warn: jwt expired
+2019-05-22T11:22:25.789Z warn: payload is required
+2019-05-22T11:22:48.765Z warn: jwt expired
+2019-05-22T11:22:48.766Z warn: payload is required
+2019-05-22T11:23:30.230Z warn: jwt expired
+2019-05-22T11:23:30.235Z warn: payload is required
+2019-05-22T11:23:50.951Z warn: jwt expired
+2019-05-22T11:23:50.954Z warn: payload is required
+2019-05-27T15:10:15.803Z error: The server does not support SSL connections
+2019-05-27T15:10:15.803Z error: The server does not support SSL connections

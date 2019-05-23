@@ -204,3 +204,18 @@ app.post('/api/change-password', async (req, res) => {
     res.json(apiResponses.expireRecoverToken);
   }
 });
+
+app.post('/api/get-extension-key', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const resFind = await userService.find({ email });
+    if (resFind && resFind.id) {
+      res.json({ access: true, id: resFind.id });
+    } else {
+      res.json(apiResponses.userNotFound);
+    }
+  } catch (error) {
+    logger.warn(error);
+    res.status(401);
+  }
+});

@@ -16,5 +16,6 @@ const checkAuth = (req, res, next) => {
 };
 
 export {
+  // eslint-disable-next-line import/prefer-default-export
   checkAuth,
 };

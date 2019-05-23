@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import config from 'config';
+import cors from 'cors';
 import passport from './common/helpers/passport';
 
 import scheduleService from './bll/services/schedule';
@@ -14,7 +15,7 @@ const port = process.env.PORT || serverConf.port;
 
 const app = express();
 
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -15,7 +15,7 @@ const sequelize = new Sequelize(dbConfig.database,
       idle: 10000,
     },
     dialectOptions: {
-      ssl: true,
+      ssl: false,
     },
     operatorsAliases: false,
     logging: false,
