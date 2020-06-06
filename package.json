@@ -1,107 +1,115 @@
 {
-  "name": "node-vue-Etranslate",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "lint": "vue-cli-service lint",
-    "cli-dev": "vue-cli-service serve client/src",
-    "cli-prod": "vue-cli-service build client/src",
-    "cli-test": "vue-cli-service test:unit --watch",
-    "server-dev": "nodemon  --experimental-modules --watch server server/index.mjs",
-    "server-prod": "cross-env NODE_ENV=production node --experimental-modules server/index.mjs"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.3",
-    "array-from-polyfill": "^1.0.1",
-    "babel-polyfill": "^6.26.0",
-    "body-parser": "^1.18.3",
-    "config": "^3.0.1",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.5",
-    "cross-env": "^5.2.0",
-    "express": "^4.16.4",
-    "googleapis": "^36.0.0",
-    "helmet": "^3.15.0",
-    "install": "^0.12.2",
-    "isomorphic-fetch": "^2.2.1",
-    "js-cache": "^1.0.3",
-    "jsonwebtoken": "^8.4.0",
-    "material-icons": "^0.3.0",
-    "node-schedule": "^1.3.1",
-    "nodemailer": "^4.7.0",
-    "npm": "^6.9.0",
-    "passport": "^0.4.0",
-    "passport-google-oauth": "^1.0.0",
-    "passport-jwt": "^4.0.0",
-    "passport-yandex": "0.0.3",
-    "pg": "^7.7.1",
-    "pg-hstore": "^2.3.2",
-    "postgresql": "0.0.1",
-    "sequelize": "^4.41.2",
-    "simple-keyboard": "^2.13.2",
-    "simple-keyboard-layouts": "^1.2.4",
-    "translate": "^1.0.3",
-    "vue": "^2.5.22",
-    "vue-fragment": "^1.5.0",
-    "vue-router": "^3.0.1",
-    "vuetify": "^1.4.2",
-    "vuex": "^3.0.1",
-    "vuex-router-sync": "^5.0.0",
-    "winston": "^3.1.0",
-    "yandex-dictionary": "0.0.0"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.3.0",
-    "@vue/cli-plugin-babel": "^3.0.1",
-    "@vue/cli-plugin-eslint": "^3.2.1",
-    "@vue/cli-plugin-unit-jest": "^3.7.0",
-    "@vue/cli-service": "^3.7.0",
-    "@vue/eslint-config-airbnb": "^4.0.0",
-    "@vue/test-utils": "^1.0.0-beta.20",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0-0",
-    "jest": "^18.1.0",
-    "jest-fetch-mock": "^2.1.0",
-    "jest-localstorage-mock": "^2.3.0",
-    "node-sass": "^4.11.0",
-    "nodemon": "^1.18.5",
-    "sass-loader": "^7.1.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
-    "vue-cli-plugin-vuetify": "^0.4.5",
-    "vue-template-compiler": "^2.5.22",
-    "vuetify-loader": "^1.0.5"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true,
-      "jest": true
+    "name": "node-vue-Etranslate",
+    "version": "0.1.0",
+    "engines": {
+        "node": "12.16.1"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended",
-      "@vue/airbnb"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
+    "private": true,
+    "scripts": {
+        "lint": "vue-cli-service lint",
+        "cli-dev": "vue-cli-service serve client/src",
+        "cli-prod": "vue-cli-service build client/src",
+        "cli-test": "vue-cli-service test:unit --watch",
+        "server-dev": "nodemon  --inspect --experimental-modules --es-module-specifier-resolution=node --watch server server/index.mjs",
+        "server-prod": "cross-env NODE_ENV=production node --inspect --experimental-modules --es-module-specifier-resolution=node server/index.mjs"
     },
-    "rules": {
-      "no-param-reassign": "off",
-      "class-methods-use-this": "off"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.6.3",
+        "array-from-polyfill": "^1.0.1",
+        "babel-polyfill": "^6.26.0",
+        "body-parser": "^1.18.3",
+        "config": "^3.0.1",
+        "cookie-parser": "^1.4.3",
+        "cors": "^2.8.5",
+        "cross-env": "^5.2.0",
+        "express": "^4.16.4",
+        "googleapis": "^36.0.0",
+        "helmet": "^3.15.0",
+        "install": "^0.12.2",
+        "isomorphic-fetch": "^2.2.1",
+        "js-cache": "^1.0.3",
+        "jsonwebtoken": "^8.4.0",
+        "material-icons": "^0.3.0",
+        "node-schedule": "^1.3.1",
+        "nodemailer": "^4.7.0",
+        "npm": "^6.9.0",
+        "passport": "^0.4.0",
+        "passport-google-oauth": "^1.0.0",
+        "passport-jwt": "^4.0.0",
+        "passport-yandex": "0.0.3",
+        "pg": "^7.7.1",
+        "pg-hstore": "^2.3.2",
+        "postgresql": "0.0.1",
+        "sequelize": "^4.41.2",
+        "simple-keyboard": "^2.13.2",
+        "simple-keyboard-layouts": "^1.2.4",
+        "translate": "^1.0.3",
+        "vue": "^2.5.22",
+        "vue-fragment": "^1.5.0",
+        "vue-router": "^3.0.1",
+        "vuetify": "^1.4.2",
+        "vuex": "^3.0.1",
+        "vuex-router-sync": "^5.0.0",
+        "winston": "^3.1.0",
+        "yandex-dictionary": "0.0.0"
+    },
+    "devDependencies": {
+        "@babel/preset-env": "^7.3.0",
+        "@vue/cli-plugin-babel": "^3.0.1",
+        "@vue/cli-plugin-eslint": "^3.2.1",
+        "@vue/cli-plugin-unit-jest": "^3.7.0",
+        "@vue/cli-service": "^3.7.0",
+        "@vue/eslint-config-airbnb": "^4.0.0",
+        "@vue/test-utils": "^1.0.0-beta.20",
+        "babel-core": "7.0.0-bridge.0",
+        "babel-eslint": "^10.0.1",
+        "babel-jest": "^23.6.0",
+        "eslint": "^5.8.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-vue": "^5.0.0-0",
+        "jest": "^18.1.0",
+        "jest-fetch-mock": "^2.1.0",
+        "jest-localstorage-mock": "^2.3.0",
+        "node-sass": "^4.11.0",
+        "nodemon": "^1.18.5",
+        "sass-loader": "^7.1.0",
+        "stylus": "^0.54.5",
+        "stylus-loader": "^3.0.1",
+        "vue-cli-plugin-vuetify": "^0.4.5",
+        "vue-template-compiler": "^2.5.22",
+        "vuetify-loader": "^1.0.5"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true,
+            "jest": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended",
+            "@vue/airbnb",
+            "prettier"
+        ],
+        "plugins": [
+            "prettier"
+        ],
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "rules": {
+            "no-param-reassign": "off",
+            "class-methods-use-this": "off"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
 }

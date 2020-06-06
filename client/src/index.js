@@ -8,14 +8,13 @@ import router from './router';
 import store from './store';
 import './vuetify';
 
-
 sync(store, router);
 
 Vue.config.productionTip = false;
 Vue.use(Fragment.Plugin);
 
 new Vue({
-  router,
-  store,
-  render: h => h(App),
+    router,
+    store,
+    render: (h) => h(App),
 }).$mount('#app');

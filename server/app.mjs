@@ -8,10 +8,8 @@ import passport from './common/helpers/passport';
 
 import scheduleService from './bll/services/schedule';
 
-
 const { server: serverConf } = config;
 const port = process.env.PORT || serverConf.port;
-
 
 const app = express();
 
@@ -26,8 +24,8 @@ app.use(passport.session());
 app.disable('x-powered-by');
 
 app.listen(port, () => {
-  console.log(`app listening at port ${port}`);
-  scheduleService.startSchedule();
+    console.log(`app listening at port ${port}`);
+    scheduleService.startSchedule();
 });
 
 export default app;
