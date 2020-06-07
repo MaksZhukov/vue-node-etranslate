@@ -1,16 +1,16 @@
 {
-  "client": {
-    "port": 3000,
-    "origin": "https://safe-castle-97193.herokuapp.com"
-  },
-  "server": {
-    "origin": "https://safe-castle-97193.herokuapp.com",
-    "dbConfig":{
-        "user": "exyljaxasuenub",
-        "host": "ec2-23-21-128-35.compute-1.amazonaws.com",
-        "database": "d9pjpaebsril9u",
-        "password": "e226d97fbc960779ee2d09a2ba5d4ea685cebf5e38f685ee36e87e64dc9fd1c1",
-        "port": "5432"
-      }
-  }
+    "client": {
+        "port": 3000,
+        "origin": "https://e-translate.herokuapp.com"
+    },
+    "server": {
+        "origin": "https://e-translate.herokuapp.com",
+        "dbConfig": {
+            "user": "exyljaxasuenub",
+            "host": "ec2-23-21-128-35.compute-1.amazonaws.com",
+            "database": "d9pjpaebsril9u",
+            "password": "e226d97fbc960779ee2d09a2ba5d4ea685cebf5e38f685ee36e87e64dc9fd1c1",
+            "port": "5432"
+        }
+    }
 }
