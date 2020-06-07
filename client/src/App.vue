@@ -3,24 +3,18 @@
         <v-toolbar color="teal darken-4" dark>
             <v-toolbar-title>
                 <v-icon class="red--text">translate</v-icon>
-                <router-link to="/" exact class="red--text">Etranslate</router-link>
+                <router-link to="/" exact class="red--text"
+                    >Etranslate</router-link
+                >
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-                <v-btn
-                    v-if="!user"
-                    to="/sign-in"
-                    exact
-                    flat
-                    class="red--text"
-                >Sign In</v-btn>
-                <v-btn
-                    v-if="!user"
-                    to="/sign-up"
-                    exact
-                    flat
-                    class="red--text"
-                >Sign Up</v-btn>
+                <v-btn v-if="!user" to="/sign-in" exact flat class="red--text"
+                    >Sign In</v-btn
+                >
+                <v-btn v-if="!user" to="/sign-up" exact flat class="red--text"
+                    >Sign Up</v-btn
+                >
                 <profile-bar v-if="user" :email="user.email"></profile-bar>
             </v-toolbar-items>
         </v-toolbar>
@@ -75,15 +69,8 @@ a
     word-wrap: normal
     white-space: nowrap
     direction: ltr
-
- /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased
- /* Support for Safari and Chrome. */
     text-rendering: optimizeLegibility
-
- /* Support for Firefox. */
     -moz-osx-font-smoothing: grayscale
-
- /* Support for IE. */
     font-feature-settings: "kern", "liga", "clig", "calt"
 </style>
