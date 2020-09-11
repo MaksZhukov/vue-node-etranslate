@@ -46,3 +46,10 @@
 2019-05-22T11:23:50.954Z warn: payload is required
 2019-05-27T15:10:15.803Z error: The server does not support SSL connections
 2019-05-27T15:10:15.803Z error: The server does not support SSL connections
+2020-09-08T14:55:42.285Z warn: jwt expired
+2020-09-08T14:55:42.758Z warn: jwt malformed
+2020-09-08T14:56:19.795Z error: Maximum monthly translated text volume exceeded
+2020-09-08T14:56:19.861Z error: Maximum monthly translated text volume exceeded
+2020-09-08T14:56:48.452Z error: Maximum monthly translated text volume exceeded
+2020-09-08T14:58:00.802Z error: Maximum monthly translated text volume exceeded
+2020-09-08T14:58:55.005Z error: Maximum monthly translated text volume exceeded

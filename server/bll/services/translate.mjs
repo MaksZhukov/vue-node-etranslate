@@ -1,17 +1,20 @@
-
 import logger from '../../common/helpers/winston';
-import translate from '../../common/helpers/translate';
-
+import translator from '../../common/helpers/translator';
 
 class TranslateService {
-  async translate({ text, textLang, translateLang }) {
-    try {
-      return await translate(text, { from: textLang, to: translateLang });
-    } catch (err) {
-      logger.error(err);
-      return { error: true };
+    async translate({ text, textLang, translateLang }) {
+        try {
+            const response = await translator.translate({
+                text,
+                source: textLang,
+                target: translateLang,
+            });
+            return response.result.translations[0].translation;
+        } catch (err) {
+            logger.error(err);
+            return { error: true };
+        }
     }
-  }
 }
 
 export default new TranslateService();
