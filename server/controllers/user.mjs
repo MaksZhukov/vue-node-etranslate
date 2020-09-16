@@ -94,7 +94,7 @@ app.get('/api/auth/google/callback', passport.authenticate('google', { failureRe
   const { email, id } = req.user;
   const { accessToken, refreshToken, expiresIn } = userService.getTokensAndExpiresIn({ email, id });
   await userService.update({ refreshToken }, { email });
-  res.redirect(`${originClient}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`);
+  res.redirect(`exp://192.168.100.47:19000/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`);
 });
 
 app.get('/api/auth/yandex', passport.authenticate('yandex'));
