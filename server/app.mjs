@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import config from 'config';
 import cors from 'cors';
+import device from 'express-device';
 import passport from './common/helpers/passport';
 
 import scheduleService from './bll/services/schedule';
@@ -22,6 +23,7 @@ app.use(helmet());
 app.use(passport.initialize());
 app.use(passport.session());
 app.disable('x-powered-by');
+app.use(device.capture());
 
 app.listen(port, () => {
     console.log(`app listening at port ${port}`);
