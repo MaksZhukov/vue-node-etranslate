@@ -3,6 +3,10 @@
         "port": 3001,
         "origin": "http://localhost:3001"
     },
+    "mobile": {
+        "port": 19000,
+        "origin": "exp://192.168.100.47:19000"
+    },
     "server": {
         "port": 3000,
         "origin": "http://localhost:3000",
