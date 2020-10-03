@@ -10,6 +10,7 @@
         textLang: textLang.abbr, translateLang: translateLang.abbr } : {}}"
       >Dashboard</v-list-tile>
       <v-list-tile to="/dictionary">Dictionary</v-list-tile>
+      <v-list-tile to="/info">Info</v-list-tile>
       <v-list-tile @click="logOut">
         <v-list-tile-title>Logout</v-list-tile-title>
       </v-list-tile>
