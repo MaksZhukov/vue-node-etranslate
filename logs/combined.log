@@ -55,3 +55,105 @@
 2020-09-08T14:58:55.005Z error: Maximum monthly translated text volume exceeded
 2020-09-11T13:38:58.951Z error: Model not found.
 2020-09-11T13:38:59.100Z error: Model not found.
+2020-10-03T13:55:06.016Z error: no pg_hba.conf entry for host "37.214.58.203", user "kwbdsuyhddpohu", database "dfcs7fq3n44q1u", SSL off
+2020-10-03T13:55:06.016Z error: no pg_hba.conf entry for host "37.214.58.203", user "kwbdsuyhddpohu", database "dfcs7fq3n44q1u", SSL off
+2020-10-03T13:56:20.379Z error: no pg_hba.conf entry for host "37.214.58.203", user "kwbdsuyhddpohu", database "dfcs7fq3n44q1u", SSL off
+2020-10-03T13:56:20.379Z error: no pg_hba.conf entry for host "37.214.58.203", user "kwbdsuyhddpohu", database "dfcs7fq3n44q1u", SSL off
+2020-10-03T13:59:40.558Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T13:59:40.558Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T13:59:49.464Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T13:59:49.464Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T13:59:55.454Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T13:59:55.454Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:00:02.911Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:00:02.911Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:00:20.690Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:00:20.690Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:00:32.766Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:00:32.766Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:00:37.576Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:00:37.576Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:01:19.336Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:01:19.336Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:01:33.762Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:01:33.762Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:09:10.428Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:09:10.429Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:09:30.008Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:09:30.010Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:11:02.004Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:11:02.005Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:11:45.312Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:11:45.313Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:11:53.665Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:11:53.667Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:24.521Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:24.523Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:28.435Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:28.436Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:31.567Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:31.568Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:36.998Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:36.999Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:38.680Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:12:38.681Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:14:11.452Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:14:11.453Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:14:15.978Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:14:15.979Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:14:50.408Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:14:50.410Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:15:10.096Z warn: Cannot read property 'split' of undefined
+2020-10-03T14:15:10.096Z error: Missing required parameters: text
+2020-10-03T14:15:22.342Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:15:22.343Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:16:55.656Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:16:55.658Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:19:46.244Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:19:46.245Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:19:59.762Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:19:59.763Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:20:02.005Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:20:02.007Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:20:26.430Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:20:26.431Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:22:53.495Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:22:53.496Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:01.548Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:01.550Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:17.065Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:17.066Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:40.095Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:40.096Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:44.941Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:44.942Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:58.091Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:58.092Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:59.863Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:23:59.865Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:14.699Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:14.700Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:24.978Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:24.979Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:28.267Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:28.268Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:33.456Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:33.457Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:47.040Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:47.041Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:53.888Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:24:53.889Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:25:46.175Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:25:46.176Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:25:51.215Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:25:51.217Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:25:54.171Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:25:54.172Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:25:59.838Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:25:59.839Z error: Cannot read property 'gte' of undefined
+2020-10-03T14:26:07.863Z error: userModel.destroy is not a function
+2020-10-03T14:26:07.864Z error: userModel.update is not a function
+2020-10-03T14:26:15.184Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:26:15.184Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:26:23.647Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-03T14:26:23.647Z error: connect ECONNREFUSED 127.0.0.1:5433
