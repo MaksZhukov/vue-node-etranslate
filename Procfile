@@ -1,1 +1,1 @@
-web: npm run cli-prod && npm run server-prod
+web: npm run server-prod
