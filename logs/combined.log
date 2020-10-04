@@ -157,3 +157,21 @@
 2020-10-03T14:26:15.184Z error: connect ECONNREFUSED 127.0.0.1:5433
 2020-10-03T14:26:23.647Z error: connect ECONNREFUSED 127.0.0.1:5433
 2020-10-03T14:26:23.647Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-04T13:30:11.884Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:11.885Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:37.850Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:37.851Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:39.585Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:39.587Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:41.900Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:41.902Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:46.728Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:30:46.729Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:31:02.564Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:31:02.566Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:31:05.232Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:31:05.233Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:38:01.564Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:38:01.565Z error: Cannot read property 'gte' of undefined
+2020-10-04T13:38:05.541Z error: userModel.destroy is not a function
+2020-10-04T13:38:05.545Z error: userModel.update is not a function
