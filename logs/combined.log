@@ -175,3 +175,5 @@
 2020-10-04T13:38:01.565Z error: Cannot read property 'gte' of undefined
 2020-10-04T13:38:05.541Z error: userModel.destroy is not a function
 2020-10-04T13:38:05.545Z error: userModel.update is not a function
+2020-10-04T13:38:12.703Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-04T13:38:12.703Z error: connect ECONNREFUSED 127.0.0.1:5433
