@@ -12,7 +12,9 @@
         </vue-typed-js>
         <h2 class="mb-2">
             Можете скачать
-            <a href="api/download/etranslate-chrome-extension.zip" download
+            <a
+                href="https://github.com/MaksZhukov/etranslate-chrome-extension/archive/master.zip"
+                download
                 >ETranslate расширение</a
             >
             для браузера google chrome для удобного перевода слов со страниц
@@ -26,6 +28,6 @@
 
 <script>
 export default {
-    name: "welcome",
+    name: 'welcome',
 };
 </script>

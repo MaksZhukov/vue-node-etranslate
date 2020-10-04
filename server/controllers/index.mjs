@@ -4,7 +4,6 @@ import './user';
 import './translate';
 import './userDictionary';
 import './dictionary';
-import './download';
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve('dist/index.html'));
