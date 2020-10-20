@@ -3,7 +3,7 @@ import app from '../app';
 import passport from '../common/helpers/passport';
 import logger from '../common/helpers/winston';
 import userService from '../bll/services/user';
-import { checkAuth } from '../middlewares';
+import { checkAuth, storeRedirectToInSession } from '../middlewares';
 import { encrypt } from '../common/helpers/crypto';
 
 const {
@@ -12,7 +12,6 @@ const {
         mail: { messages: emailMessages },
     },
     client: { origin: originClient },
-    mobile: { origin: originMobile },
 } = config;
 
 app.post('/api/sign-up', async (req, res) => {
@@ -101,6 +100,7 @@ app.post('/api/sign-in', async (req, res) => {
 
 app.get(
     '/api/auth/google',
+    storeRedirectToInSession,
     passport.authenticate('google', { scope: ['email'] })
 );
 
@@ -109,8 +109,7 @@ app.get(
     passport.authenticate('google', { failureRedirect: '/sign-in' }),
     async (req, res) => {
         const { email, id } = req.user;
-        const origin =
-            req.device.type === 'desktop' ? originClient : originMobile;
+        const host = req.session.redirectTo;
         const {
             accessToken,
             refreshToken,
@@ -118,20 +117,23 @@ app.get(
         } = userService.getTokensAndExpiresIn({ email, id });
         await userService.update({ refreshToken }, { email });
         res.redirect(
-            `${origin}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`
+            `${host}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`
         );
     }
 );
 
-app.get('/api/auth/yandex', passport.authenticate('yandex'));
+app.get(
+    '/api/auth/yandex',
+    storeRedirectToInSession,
+    passport.authenticate('yandex')
+);
 
 app.get(
     '/api/auth/yandex/callback',
     passport.authenticate('yandex', { failureRedirect: '/sign-in' }),
     async (req, res) => {
         const { email, id } = req.user;
-        const origin =
-            req.device.type === 'desktop' ? originClient : originMobile;
+        const host = req.session.redirectTo;
         const {
             accessToken,
             refreshToken,
@@ -140,7 +142,7 @@ app.get(
         await userService.update({ refreshToken }, { email });
 
         res.redirect(
-            `${origin}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`
+            `${host}/?accessToken=${accessToken}&expiresIn=${expiresIn}&refreshToken=${refreshToken}`
         );
     }
 );
