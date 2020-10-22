@@ -9,7 +9,7 @@ const {
 const languageTranslator = new LanguageTranslatorV3({
     authenticator: new auth.IamAuthenticator({
         apikey: configTranslate.key,
-    }),
+	}),
     serviceUrl: configTranslate.serviceUrl,
     version: configTranslate.version,
 });

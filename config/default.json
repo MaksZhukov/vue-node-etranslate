@@ -32,7 +32,7 @@
         "translate": {
             "key": "6UwOCt2znHsz7_5Vd0uU5kZdkGdkOY_JklBnLL-xJABi",
             "serviceUrl": "https://api.eu-gb.language-translator.watson.cloud.ibm.com/instances/13485b64-93ef-48d0-a37d-85c3283e2595",
-            "version": "2020-09-09"
+            "version": "2018-05-01"
         },
         "dictionary": {
             "key": "dict.1.1.20190104T125347Z.d6332c5cefbe16bb.906222e5a61947e4ed5c9e0a1c0979213ae6ebb9"
