@@ -157,3 +157,14 @@
 2020-10-03T14:26:15.184Z error: connect ECONNREFUSED 127.0.0.1:5433
 2020-10-03T14:26:23.647Z error: connect ECONNREFUSED 127.0.0.1:5433
 2020-10-03T14:26:23.647Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-23T13:26:21.975Z error: could not detect endianness after looking at the tail 140212 non-zero byte string in a data stream of 140315 bytes. Is the bytestream really PCM data?
+2020-10-23T13:26:41.593Z error: could not detect endianness after looking at the tail 140212 non-zero byte string in a data stream of 140315 bytes. Is the bytestream really PCM data?
+2020-10-23T13:27:05.126Z error: could not detect endianness after looking at the tail 140212 non-zero byte string in a data stream of 140315 bytes. Is the bytestream really PCM data?
+2020-10-23T13:29:38.160Z error: unable to transcode data stream audio/wav -> audio/x-float-array 
+2020-10-23T13:30:16.923Z error: callback is not a function
+2020-10-23T13:30:22.981Z error: callback is not a function
+2020-10-23T13:32:09.822Z error: could not detect endianness after looking at the tail 140212 non-zero byte string in a data stream of 140315 bytes. Is the bytestream really PCM data?
+2020-10-23T13:32:21.674Z error: could not detect endianness after looking at the tail 140212 non-zero byte string in a data stream of 140315 bytes. Is the bytestream really PCM data?
+2020-10-23T13:35:07.130Z error: This 8000hz audio input requires a narrow band model.  See https://<STT_API_ENDPOINT>/v1/models for a list of available models.
+2020-10-23T13:35:12.529Z error: This 8000hz audio input requires a narrow band model.  See https://<STT_API_ENDPOINT>/v1/models for a list of available models.
+2020-10-23T13:35:25.124Z error: This 8000hz audio input requires a narrow band model.  See https://<STT_API_ENDPOINT>/v1/models for a list of available models.
