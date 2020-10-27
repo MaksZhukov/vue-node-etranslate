@@ -18,7 +18,6 @@ const checkAuth = (req, res, next) => {
 
 const storeRedirectToInSession = (req, res, next) => {
     const { redirectTo } = req.query;
-    console.log(redirectTo);
     if (redirectTo) {
         req.session.redirectTo = redirectTo;
     } else {

@@ -12,6 +12,7 @@ import scheduleService from './bll/services/schedule';
 const { server: serverConf } = config;
 const port = process.env.PORT || serverConf.port;
 
+
 const app = express();
 
 app.use(cors());
