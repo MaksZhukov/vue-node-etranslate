@@ -2,6 +2,7 @@ import path from 'path';
 import app from '../app';
 import './user';
 import './translate';
+import './speech';
 import './userDictionary';
 import './dictionary';
 
