@@ -1,4 +1,3 @@
-import fs from 'fs';
 import logger from '../../common/helpers/winston';
 import speechToText from '../../common/helpers/speech';
 
@@ -6,11 +5,13 @@ class SpeechService {
     async speechToText({ speech }) {
         try {
             const response = await speechToText.recognize({
-                audio: fs.createReadStream(speech.path),
-                contentType: 'audio/l16; rate=44100',
+                audio: speech,
+                contentType:
+                    'audio/l16; rate=44100; channels=2; endianness=big-endian',
             });
             return response.result.results;
         } catch (err) {
+            console.log(err);
             logger.error(err);
             return { error: true };
         }

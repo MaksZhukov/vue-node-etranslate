@@ -181,3 +181,86 @@
 2020-10-04T14:44:47.934Z error: connect ECONNREFUSED 127.0.0.1:5433
 2020-10-04T14:45:16.055Z error: connect ECONNREFUSED 127.0.0.1:5433
 2020-10-04T14:45:16.055Z error: connect ECONNREFUSED 127.0.0.1:5433
+2020-10-30T14:53:22.015Z warn: Cannot read property 'split' of undefined
+2020-10-30T14:54:08.378Z warn: Cannot read property 'split' of undefined
+2020-10-30T14:54:31.822Z warn: Cannot read property 'split' of undefined
+2020-10-30T14:54:37.618Z error: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+2020-10-30T14:55:07.333Z warn: Cannot read property 'split' of undefined
+2020-10-30T14:55:10.868Z error: could not detect endianness after looking at the tail 13160 non-zero byte string in a data stream of 13261 bytes. Is the bytestream really PCM data?
+2020-10-30T14:57:08.458Z warn: Cannot read property 'split' of undefined
+2020-10-30T14:57:10.152Z error: unable to transcode data stream audio/wav -> audio/x-float-array 
+2020-10-30T14:57:50.413Z warn: Cannot read property 'split' of undefined
+2020-10-30T14:57:51.789Z error: unable to transcode data stream audio/wav -> audio/x-float-array 
+2020-10-30T14:58:00.305Z warn: Cannot read property 'split' of undefined
+2020-10-30T14:58:01.222Z error: unable to transcode data stream audio/wav -> audio/x-float-array 
+2020-10-30T14:58:19.313Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:00:27.504Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:00:29.326Z error: This 8000hz audio input requires a narrow band model.  See https://<STT_API_ENDPOINT>/v1/models for a list of available models.
+2020-10-30T15:00:58.041Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:00:59.098Z error: could not detect endianness after looking at the tail 13160 non-zero byte string in a data stream of 13261 bytes. Is the bytestream really PCM data?
+2020-10-30T15:01:58.078Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:01:58.632Z error: could not detect endianness after looking at the tail 72694 non-zero byte string in a data stream of 72794 bytes. Is the bytestream really PCM data?
+2020-10-30T15:02:08.454Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:02:09.400Z error: unable to transcode data stream audio/mpeg -> audio/x-float-array 
+2020-10-30T15:02:46.661Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:02:47.512Z error: rate parameter missing in mimetype audio/x-float-array
+2020-10-30T15:03:03.346Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:04:09.658Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:04:43.249Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:05:02.091Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:05:16.850Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:05:38.903Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:05:54.068Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:06:27.743Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:07:33.163Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:07:42.097Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:08:23.885Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:09:59.178Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:10:01.268Z error: could not detect endianness after looking at the tail 29512 non-zero byte string in a data stream of 29613 bytes. Is the bytestream really PCM data?
+2020-10-30T15:10:16.640Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:10:17.793Z error: could not detect endianness after looking at the tail 29512 non-zero byte string in a data stream of 29613 bytes. Is the bytestream really PCM data?
+2020-10-30T15:10:28.868Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:10:44.411Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:10:45.995Z error: could not detect endianness after looking at the tail 29512 non-zero byte string in a data stream of 29613 bytes. Is the bytestream really PCM data?
+2020-10-30T15:11:03.744Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:11:10.003Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:11:21.451Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:11:22.673Z error: could not detect endianness after looking at the tail 29512 non-zero byte string in a data stream of 29613 bytes. Is the bytestream really PCM data?
+2020-10-30T15:14:49.068Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:15:16.665Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:15:18.135Z error: could not detect endianness after looking at the tail 29512 non-zero byte string in a data stream of 29613 bytes. Is the bytestream really PCM data?
+2020-10-30T15:16:27.902Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:20:22.975Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:21:51.650Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:23:34.552Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:23:34.556Z error: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+2020-10-30T15:23:46.426Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:23:46.429Z error: The "path" argument must be of type string or an instance of Buffer or URL. Received an instance of Object
+2020-10-30T15:23:47.829Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:23:47.829Z error: The "path" argument must be of type string or an instance of Buffer or URL. Received an instance of Object
+2020-10-30T15:24:01.683Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:24:02.641Z error: Stream was 2 bytes but needs to be at least 100 bytes.
+2020-10-30T15:25:00.322Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:25:00.325Z error: The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received an instance of Object
+2020-10-30T15:25:02.267Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:25:02.267Z error: The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received an instance of Object
+2020-10-30T15:27:22.706Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:27:22.709Z error: The "list" argument must be an instance of Array. Received an instance of Object
+2020-10-30T15:27:36.446Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:27:36.449Z error: The "list[0]" argument must be an instance of Buffer or Uint8Array. Received an instance of Object
+2020-10-30T15:28:16.068Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:28:16.075Z error: Cannot read property 'path' of undefined
+2020-10-30T15:28:22.251Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:28:22.256Z error: Cannot read property 'path' of undefined
+2020-10-30T15:28:35.328Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:29:32.581Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:30:10.083Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:30:19.074Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:30:27.309Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:30:29.767Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:30:31.594Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:30:40.834Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:31:01.367Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:31:04.485Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:31:18.002Z warn: Cannot read property 'split' of undefined
+2020-10-30T15:31:22.301Z warn: Cannot read property 'split' of undefined
