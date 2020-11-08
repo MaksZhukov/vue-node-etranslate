@@ -28,6 +28,6 @@
 
 <script>
 export default {
-    name: 'welcome',
+    name: 'info',
 };
 </script>
