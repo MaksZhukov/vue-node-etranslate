@@ -6,13 +6,13 @@
     </v-btn>
     <v-list>
       <v-list-tile
-        :to="{ name: 'dashboard', query: textLang.abbr && translateLang && inputText ? { text: inputText,
+        :to="{ name: 'translator', query: textLang.abbr && translateLang && inputText ? { text: inputText,
         textLang: textLang.abbr, translateLang: translateLang.abbr } : {}}"
-      >Dashboard</v-list-tile>
-      <v-list-tile to="/dictionary">Dictionary</v-list-tile>
-      <v-list-tile to="/info">Info</v-list-tile>
+      >Переводчик</v-list-tile>
+      <v-list-tile to="/dictionary">Словарь</v-list-tile>
+      <v-list-tile to="/info">Информация</v-list-tile>
       <v-list-tile @click="logOut">
-        <v-list-tile-title>Logout</v-list-tile-title>
+        <v-list-tile-title>Выход</v-list-tile-title>
       </v-list-tile>
     </v-list>
   </v-menu>

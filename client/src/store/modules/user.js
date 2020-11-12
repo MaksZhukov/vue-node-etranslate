@@ -105,7 +105,7 @@ export default {
           commit('setUser', response);
           const { accessToken, refreshToken, expiresIn } = response;
           setItemsToLocalStorage({ accessToken, refreshToken, expiresIn });
-          router.push('dashboard');
+          router.push('translator');
         }
         commit('showSnackBar', { message: response.message, color: response.status }, { root: true });
       } catch (error) {

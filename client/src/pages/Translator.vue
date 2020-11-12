@@ -130,7 +130,7 @@ import DictionaryTextLang from '../components/DictionaryTextLang.vue';
 import DictionaryTranslateLang from '../components/DictionaryTranslateLang.vue';
 
 export default {
-  name: 'Dashboard',
+  name: '/',
   components: {
     VoiceRecorder, DictionaryTextLang, DictionaryTranslateLang, VoicePronunciation, VirtualKeyboard,
   },
@@ -210,7 +210,7 @@ export default {
           translateLang: this.translateLang.abbr,
         });
         this.$router.push({
-          path: 'dashboard',
+          path: '/',
           query: {
             text: this.inputText,
             textLang: this.textLang.abbr,
@@ -260,7 +260,7 @@ export default {
     handleOnEnterVirtualKeyboard() {
       this.getTranslateAndDictionary();
       this.$router.push({
-        path: 'dashboard',
+        path: '/',
         query: {
           text: this.inputText,
           textLang: this.textLang.abbr,
@@ -300,7 +300,7 @@ export default {
           lang => lang.abbr === translateLang,
         );
         if (!resTextLang || !resTranslateLang) {
-          this.$router.push('dashboard');
+          this.$router.push('/');
         } else {
           this.translateLang = resTranslateLang;
           this.textLang = resTextLang;
@@ -324,7 +324,7 @@ export default {
       if (!val) {
         this.clearOutputText();
         this.clearDictionaries();
-        this.$router.push({ path: 'dashboard', query: { } });
+        this.$router.push({ path: '/', query: { } });
       }
     },
     '$route.query': function (query) {
@@ -332,7 +332,7 @@ export default {
     },
     textLang(val) {
       this.$router.push({
-        path: 'dashboard',
+        path: '/',
         query: {
           text: this.inputText,
           textLang: val.abbr,
@@ -342,7 +342,7 @@ export default {
     },
     translateLang(val) {
       this.$router.push({
-        path: 'dashboard',
+        path: '/',
         query: {
           text: this.inputText,
           textLang: this.textLang.abbr,

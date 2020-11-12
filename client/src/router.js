@@ -7,7 +7,7 @@ import { checkItemsInLocalStorage, setItemsToLocalStorage } from './helpers';
 const NotFound = () => import('./pages/NotFound.vue');
 const SignIn = () => import('./pages/SignIn.vue');
 const SignUp = () => import('./pages/SignUp.vue');
-const Dashboard = () => import('./pages/Dashboard.vue');
+const Translator = () => import('./pages/Translator.vue');
 const Dictionary = () => import('./pages/Dictionary.vue');
 const Recover = () => import('./pages/Recover.vue');
 const Info = () => import('./pages/Info.vue');
@@ -35,9 +35,9 @@ const router = new Router({
             },
         },
         {
-            path: '/dashboard',
-            name: 'dashboard',
-            component: Dashboard,
+            path: '/',
+            name: 'translator',
+            component: Translator,
             meta: {
                 user: true,
             },

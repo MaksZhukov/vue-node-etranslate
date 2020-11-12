@@ -44,9 +44,9 @@ describe('ProfileBar component', () => {
     expect(wrapper.props('email')).toBe(email);
     expect(wrapper.find('.v-menu').text()).toContain(email);
   });
-  it('profilebar has logout and dashboard link', () => {
+  it('profilebar has logout and translator link', () => {
     const arrayA = wrapper.findAll('a');
-    expect(arrayA.at(0).text()).toContain('Dashboard');
+    expect(arrayA.at(0).text()).toContain('Translator');
     expect(arrayA.at(2).text()).toContain('Logout');
   });
   it('profilebar click logout was execute', () => {
