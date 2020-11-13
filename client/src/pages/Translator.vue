@@ -26,6 +26,8 @@
               :lang="textLang.abbr"
             ></voice-pronunciation>
             <voice-recorder @onResultVoiceRecorder="handleResultVoiceRecorder"></voice-recorder>
+            <!-- <v-file-input show-size counter chips multiple label="Arquivo Geral" ref="myfile" ></v-file-input> -->
+            <image-recognition @onFileChange="handleFileChange"></image-recognition>
             <v-tooltip bottom>
               <v-btn
                 slot="activator"
@@ -39,8 +41,8 @@
             <v-tooltip bottom>
               <v-btn
                 slot="activator"
-                :disabled="translateResponse.pending || getDictionaryResponse.pending"
-                :loading="translateResponse.pending || getDictionaryResponse.pending"
+                :disabled="pending"
+                :loading="pending"
                 @click="switchLanguages(); getTranslateAndDictionary()"
                 icon
               >
@@ -94,7 +96,7 @@
           counter
           readonly
           auto-grow
-          :placeholder="translateResponse.pending ? 'Loading' : ''"
+          :placeholder="translatePending ? 'Loading' : ''"
           :label="translateLang.name"
           v-model="outputText"
         ></v-textarea>
@@ -126,13 +128,15 @@ import VirtualKeyboard from '../components/VirtualKeyboard.vue';
 import { LANGUAGES, DELAY_TRANSLATE } from '../constants';
 import VoiceRecorder from '../components/VoiceRecorder.vue';
 import VoicePronunciation from '../components/VoicePronunciation.vue';
+import ImageRecognition from '../components/ImageRecognition.vue';
 import DictionaryTextLang from '../components/DictionaryTextLang.vue';
 import DictionaryTranslateLang from '../components/DictionaryTranslateLang.vue';
 
 export default {
   name: '/',
   components: {
-    VoiceRecorder, DictionaryTextLang, DictionaryTranslateLang, VoicePronunciation, VirtualKeyboard,
+    VoiceRecorder, DictionaryTextLang, DictionaryTranslateLang, 
+    VoicePronunciation, VirtualKeyboard, ImageRecognition
   },
   data: () => ({
     languagesTextLang: LANGUAGES,
@@ -155,9 +159,15 @@ export default {
   },
   computed: {
     ...mapState('userModule', ['user']),
-    ...mapState('translateModule', ['translateResponse']),
+    ...mapState('translateModule', ['translateResponse', 'translateByImageResponse']),
     ...mapState('dictionaryModule', ['getDictionaryResponse']),
     ...mapState('userDictionaryModule', ['userDictionary']),
+    pending(){
+        return this.translateResponse.pending || this.translateByImageResponse.pending || this.getDictionaryResponse.pending;
+    },
+    translatePending() {
+        return this.translateResponse.pending || this.translateByImageResponse.pending;
+    },
     inputText: {
       get() {
         return this.$store.state.translateModule.inputText;
@@ -192,7 +202,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('translateModule', ['translate']),
+    ...mapActions('translateModule', ['translate', 'translateByImage']),
     ...mapActions('dictionaryModule', ['getDictionary']),
     ...mapActions('userDictionaryModule', ['addToUserDictionary', 'removeFromUserDictionary', 'getUserDictionary']),
     ...mapMutations('dictionaryModule', ['clearDictionaries']),
@@ -318,6 +328,14 @@ export default {
     handleVoicesChanged() {
       this.voices = window.speechSynthesis.getVoices();
     },
+    handleFileChange(e){
+        const formData = new FormData();
+        formData.append("textLang", this.textLang.abbr);
+        formData.append("translateLang", this.translateLang.abbr);
+        formData.append("image", e.target.files[0]);
+        this.translateByImage(formData);
+        e.target.value = null;
+    }
   },
   watch: {
     inputText(val) {
@@ -355,6 +373,5 @@ export default {
 </script>
 
 <style lang="sass">
-  .theme--light.v-list.no-bg
-    background: none;
+ 
 </style>

@@ -264,3 +264,5 @@
 2020-10-30T15:31:04.485Z warn: Cannot read property 'split' of undefined
 2020-10-30T15:31:18.002Z warn: Cannot read property 'split' of undefined
 2020-10-30T15:31:22.301Z warn: Cannot read property 'split' of undefined
+2020-11-13T19:15:48.849Z error: no pg_hba.conf entry for host "178.124.194.82", user "kwbdsuyhddpohu", database "dfcs7fq3n44q1u", SSL off
+2020-11-13T19:15:48.849Z error: no pg_hba.conf entry for host "178.124.194.82", user "kwbdsuyhddpohu", database "dfcs7fq3n44q1u", SSL off
