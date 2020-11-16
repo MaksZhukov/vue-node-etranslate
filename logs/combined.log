@@ -266,3 +266,8 @@
 2020-10-30T15:31:22.301Z warn: Cannot read property 'split' of undefined
 2020-11-13T19:15:48.849Z error: no pg_hba.conf entry for host "178.124.194.82", user "kwbdsuyhddpohu", database "dfcs7fq3n44q1u", SSL off
 2020-11-13T19:15:48.849Z error: no pg_hba.conf entry for host "178.124.194.82", user "kwbdsuyhddpohu", database "dfcs7fq3n44q1u", SSL off
+2020-11-17T19:27:04.633Z error: Order must be type of array or instance of a valid sequelize method.
+2020-11-17T19:27:10.041Z error: Order must be type of array or instance of a valid sequelize method.
+2020-11-17T19:27:27.290Z error: Order must be type of array or instance of a valid sequelize method.
+2020-11-17T19:27:37.627Z error: Order must be type of array or instance of a valid sequelize method.
+2020-11-17T19:29:23.378Z error: Order must be type of array or instance of a valid sequelize method.
