@@ -10,10 +10,10 @@
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn v-if="!user" to="/sign-in" exact flat class="red--text"
-                    >Sign In</v-btn
+                    >Авторизация</v-btn
                 >
                 <v-btn v-if="!user" to="/sign-up" exact flat class="red--text"
-                    >Sign Up</v-btn
+                    >Регистрация</v-btn
                 >
                 <profile-bar v-if="user" :email="user.email"></profile-bar>
             </v-toolbar-items>
