@@ -34,7 +34,6 @@ app.post('/api/push-notification', checkAuth, async (req, res) => {
 
 app.delete('/api/push-notification/:userID', checkAuth, async (req, res) => {
     const { userID } = req.params;
-    console.log(userID);
     if (cronsByUserID[userID]) {
         cronsByUserID[userID].task.cancel();
     }

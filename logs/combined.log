@@ -271,3 +271,9 @@
 2020-11-17T19:27:27.290Z error: Order must be type of array or instance of a valid sequelize method.
 2020-11-17T19:27:37.627Z error: Order must be type of array or instance of a valid sequelize method.
 2020-11-17T19:29:23.378Z error: Order must be type of array or instance of a valid sequelize method.
+2020-11-22T18:35:32.464Z warn: jwt malformed
+2020-11-22T18:36:00.436Z error: Invalid status code 400
+2020-11-22T18:36:16.128Z error: Invalid status code 400
+2020-11-22T18:38:38.610Z error: Invalid status code 400
+2020-11-22T18:40:57.168Z error: Invalid status code 400
+2020-11-22T18:48:05.761Z error: Invalid status code 401

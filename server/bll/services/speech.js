@@ -6,8 +6,7 @@ class SpeechService {
         try {
             const response = await speechToText.recognize({
                 audio: speech,
-                contentType:
-                    'audio/l16; rate=44100; channels=2; endianness=big-endian',
+                contentType: 'audio/l16; rate=44100;',
             });
             return response.result.results;
         } catch (err) {

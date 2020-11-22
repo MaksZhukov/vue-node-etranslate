@@ -49,8 +49,8 @@
                 "type": "OAuth2",
                 "user": "etranslatenodevue@gmail.com",
                 "clientId": "850216707923-lrnh65b8u14ksd7begdjttillsnu7shk.apps.googleusercontent.com",
-                "clientSecret": "C3MVQfBDzLHhHTlz6OjTa1cv",
-                "refreshToken": "1/SV0t7PDHwaD7pVh_t0Nl1H4T92uyr8qPggFTdnyGIGs"
+                "clientSecret": "T1TLqlLbqMyEhKRnC2KqzpaH",
+                "refreshToken": "1//04zOTb1aeQ5KXCgYIARAAGAQSNwF-L9IrGNFlBYbG_3qLPnH-DU9D2iNYK6I1NxkACOf82_9VIbF4CO1mzSnoeC6ca5XElOXb0UI"
             },
             "messages": {
                 "from": "\"Etranslate\" <etranslatenodevue@gmail.com>",
@@ -63,7 +63,7 @@
         "passport": {
             "google": {
                 "clientID": "850216707923-lrnh65b8u14ksd7begdjttillsnu7shk.apps.googleusercontent.com",
-                "clientSecret": "C3MVQfBDzLHhHTlz6OjTa1cv"
+                "clientSecret": "T1TLqlLbqMyEhKRnC2KqzpaH"
             },
             "yandex": {
                 "clientID": "a5391eeec28a414f84dcce19c38d10f0",
