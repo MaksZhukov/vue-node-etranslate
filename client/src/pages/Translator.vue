@@ -36,7 +36,7 @@
                 :disabled="disabledKeyboard"
               >
                 <v-icon :color="isShowKeyboard ? 'red' : 'black'">keyboard</v-icon>
-              </v-btn>Show keyboard
+              </v-btn>Показать виртуальную клавиатуру
             </v-tooltip>
             <v-tooltip bottom>
               <v-btn
@@ -47,7 +47,7 @@
                 icon
               >
                 <v-icon>fas fa-exchange-alt</v-icon>
-              </v-btn>Swap languages
+              </v-btn>Поменять языки
             </v-tooltip>
           </v-flex>
         </v-layout>

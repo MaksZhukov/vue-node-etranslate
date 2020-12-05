@@ -76,6 +76,69 @@
         "apiResponses": {
             "userExists": {
                 "status": "warning",
+                "message": "Пользователь уже существует"
+            },
+            "userNotFound": {
+                "status": "warning",
+                "message": "Пользователь не найден"
+            },
+            "userSignIn": { "status": "success", "message": "entry success" },
+            "problemDatabase": {
+                "status": "error",
+                "message": "Проблема с базой данных"
+            },
+            "problemMailer": {
+                "status": "error",
+                "message": "Проблема с почтовым сервисом"
+            },
+            "problemDictionary": {
+                "status": "error",
+                "message": "Проблема со словарём"
+            },
+            "problemTranslate": {
+                "status": "error",
+                "message": "Проблема с переводом"
+            },
+            "createUser": {
+                "status": "warning",
+                "message": "Подтвердите вашу почту"
+            },
+            "emailNoVerify": {
+                "status": "warning",
+                "message": "Почта не была верифицирована"
+            },
+            "recoverPasswordEmail": {
+                "status": "success",
+                "message": "Проверьте свою почту"
+            },
+            "changePassword": {
+                "status": "success",
+                "message": "пароль был изменён"
+            },
+            "addToUserDictionary": {
+                "status": "success",
+                "message": "Перевод добавлен в словарь пользователя"
+            },
+            "removeFromUserDictionary": {
+                "status": "success",
+                "message": "Перевод удалён из словаря пользователя"
+            },
+            "expireRecoverToken": {
+                "status": "error",
+                "message": "Создана новая ссылка"
+            },
+            "sentRecoverMessage": {
+                "status": "warning",
+                "message": "Ссылка на востановление пароля была отправлена"
+            },
+            "sentRecoverProvider": {
+                "status": "warning",
+                "message": "Почта была авторизованна с "
+            }
+        },
+        "apiResponsesENG": {
+            "userExists": {
+                "status": "warning",
                 "message": "user has already exists"
             },
             "userNotFound": {

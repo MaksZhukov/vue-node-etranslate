@@ -3,28 +3,28 @@
     <v-flex xs4 dark>
       <v-form v-model="valid">
         <v-text-field
-          label="E-mail"
+          label="Почта"
           v-model="email"
           :rules="emailRules"
           required
         ></v-text-field>
         <v-text-field
-          label="Password"
+          label="Пароль"
           :append-icon="showPassword ? 'visibility_off' : 'visibility'"
           @click:append="showPassword = !showPassword"
           :type="showPassword ? 'text' : 'password'"
-          hint="At least 8 characters"
+          hint="По крайней мере 8 символов"
           counter
           v-model="password"
           :rules="passwordRules"
           required
         ></v-text-field>
         <v-text-field
-          label="Repeat password"
+          label="Повторите пароль"
           :append-icon="showRePassword ? 'visibility_off' : 'visibility'"
           @click:append="showRePassword = !showRePassword"
           :type="showRePassword ? 'text' : 'password'"
-          hint="At least 8 characters"
+          hint="По крайней мере 8 символов"
           counter
           v-model="rePassword"
           :rules="[confirmPassword]"
@@ -35,7 +35,7 @@
           :disabled="!valid  || signUpResponse.pending"
           :loading="signUpResponse.pending"
           @click="signUp({password,email})"
-        >Sign Up</v-btn>
+        >Зарегистрироваться</v-btn>
       </v-form>
       <auth-with></auth-with>
     </v-flex>

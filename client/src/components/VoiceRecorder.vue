@@ -7,7 +7,7 @@
       :disabled="isDisabled"
     >
       <v-icon :color="isActive ? 'red' : 'black'">mic</v-icon>
-    </v-btn>Voice recorder
+    </v-btn>Запись голоса
   </v-tooltip>
 </template>
 

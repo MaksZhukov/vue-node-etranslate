@@ -12,7 +12,7 @@
       accept=".jpg, .jpeg, .png"
       @change="$emit('onFileChange',$event)">
       <v-icon>image</v-icon>
-    </v-btn>Image recognition
+    </v-btn>Распознавание изображений
   </v-tooltip>
 </template>
 

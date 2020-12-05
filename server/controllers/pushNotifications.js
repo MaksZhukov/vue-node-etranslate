@@ -15,7 +15,7 @@ const taskNotificationFromUserDictionary = (token, userID, textLang, translateLa
             {
                 to: token,
                 sound: 'default',
-                title: 'Random text from your dictionary',
+                title: 'Случайный текст с вашего словаря',
                 body: response.text,
             },
         ]);

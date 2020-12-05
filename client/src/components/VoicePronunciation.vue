@@ -7,7 +7,7 @@
       icon
     >
       <v-icon :color="isActive ? 'red' : 'black'">volume_up</v-icon>
-    </v-btn>Voice pronounication
+    </v-btn>Голосовое произношение
   </v-tooltip>
 </template>
 

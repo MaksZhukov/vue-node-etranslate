@@ -25,7 +25,7 @@
         </v-container>
         <v-snackbar v-model="snackBar.visible" top :color="snackBar.color">
             <span class="black--text">{{ snackBar.message }}</span>
-            <v-btn color="black" flat dark @click="hideSnackBar">Close</v-btn>
+            <v-btn color="black" flat dark @click="hideSnackBar">Закрыть</v-btn>
         </v-snackbar>
     </v-app>
 </template>

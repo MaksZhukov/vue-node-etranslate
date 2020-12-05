@@ -1,5 +1,5 @@
 <template>
-  <p class="text-uppercase">auth with:
+  <p class="text-uppercase">авторизоваться с помощью:
     <v-btn href="/api/auth/google" icon>
       <v-icon color="blue">fab fa-google</v-icon>
     </v-btn>

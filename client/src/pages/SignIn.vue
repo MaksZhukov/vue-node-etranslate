@@ -3,17 +3,17 @@
     <v-flex xs4 dark>
       <v-form v-model="valid">
         <v-text-field
-          label="E-mail"
+          label="Почта"
           v-model="email"
           :rules="emailRules"
           required
         ></v-text-field>
         <v-text-field
-          label="Password"
+          label="Пароль"
           :append-icon="showPassword ? 'visibility_off' : 'visibility'"
           @click:append="showPassword = !showPassword"
           :type="showPassword ? 'text' : 'password'"
-          hint="At least 8 characters"
+          hint="По крайней мере 8 символов"
           counter
           v-model="password"
           :rules="passwordRules"
@@ -24,8 +24,8 @@
           :disabled="!valid || signInResponse.pending"
           :loading="signInResponse.pending"
           @click="signIn({password,email})"
-        >Sign In</v-btn>
-        <v-btn to="/email-for-recover">Forget password</v-btn>
+        >Войти</v-btn>
+        <v-btn to="/email-for-recover">Забыли пароль?</v-btn>
       </v-form>
       <auth-with></auth-with>
     </v-flex>
