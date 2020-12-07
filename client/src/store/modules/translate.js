@@ -41,14 +41,8 @@ export default {
             state.outputText = payload.translation;
         },
         switchChosenLanguages(state) {
-            [state.inputText, state.outputText] = [
-                state.outputText,
-                state.inputText,
-            ];
-            [state.textLang, state.translateLang] = [
-                state.translateLang,
-                state.textLang,
-            ];
+            [state.inputText, state.outputText] = [state.outputText, state.inputText];
+            [state.textLang, state.translateLang] = [state.translateLang, state.textLang];
         },
         updateInputText(state, text) {
             state.inputText = text;
@@ -72,12 +66,8 @@ export default {
             try {
                 commit('translatePending', { pending: true });
                 let response;
-                if (
-                    cacheTranslate.get(`${text}-${textLang}-${translateLang}`)
-                ) {
-                    response = cacheTranslate.get(
-                        `${text}-${textLang}-${translateLang}`
-                    );
+                if (cacheTranslate.get(`${text}-${textLang}-${translateLang}`)) {
+                    response = cacheTranslate.get(`${text}-${textLang}-${translateLang}`);
                 } else {
                     response = await apiTranslate.translate(
                         queryString({
@@ -86,10 +76,7 @@ export default {
                             translateLang,
                         })
                     );
-                    cacheTranslate.set(
-                        `${text}-${textLang}-${translateLang}`,
-                        response
-                    );
+                    cacheTranslate.set(`${text}-${textLang}-${translateLang}`, response);
                 }
                 if (response.status === 'error') {
                     throw response;
@@ -97,11 +84,7 @@ export default {
                 commit('translateSuccess', response);
             } catch (error) {
                 commit('translateError', error);
-                commit(
-                    'showSnackBar',
-                    { message: error.message, color: 'error' },
-                    { root: true }
-                );
+                commit('showSnackBar', { message: error.message, color: 'error' }, { root: true });
             }
         },
         async translateByImage({ commit }, formData) {
@@ -112,13 +95,10 @@ export default {
                     throw response;
                 }
                 commit('translateByImageSuccess', response);
+                commit('dictionaryModule/clearDictionaries', null, { root: true });
             } catch (error) {
                 commit('translateByImageError', error);
-                commit(
-                    'showSnackBar',
-                    { message: error.message, color: 'error' },
-                    { root: true }
-                );
+                commit('showSnackBar', { message: error.message, color: 'error' }, { root: true });
             }
         },
     },

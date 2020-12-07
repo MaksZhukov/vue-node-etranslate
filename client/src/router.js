@@ -66,10 +66,7 @@ const router = new Router({
                 user: false,
             },
             beforeEnter: async (to, from, next) => {
-                await store.dispatch(
-                    'userModule/checkRecoverToken',
-                    to.params.recoverToken
-                );
+                await store.dispatch('userModule/checkRecoverToken', to.params.recoverToken);
                 const {
                     state: {
                         userModule: {
@@ -105,16 +102,8 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-    let isTokensAndExpiresIn = checkItemsInLocalStorage([
-        'refreshToken',
-        'accessToken',
-        'expiresIn',
-    ]);
-    if (
-        to.path === '/' &&
-        !isTokensAndExpiresIn &&
-        Object.keys(to.query).length > 0
-    ) {
+    let isTokensAndExpiresIn = checkItemsInLocalStorage(['refreshToken', 'accessToken', 'expiresIn']);
+    if (to.path === '/' && !isTokensAndExpiresIn && Object.keys(to.query).length > 0) {
         const { accessToken, refreshToken, expiresIn } = to.query;
         setItemsToLocalStorage({ accessToken, refreshToken, expiresIn });
         isTokensAndExpiresIn = true;
@@ -133,10 +122,7 @@ router.beforeEach(async (to, from, next) => {
     await store.dispatch('userModule/tryUpdateTokens');
     if (user && user.id) {
         access = true;
-    } else if (
-        Object.keys(checkTokenResponse).length === 0 &&
-        isTokensAndExpiresIn
-    ) {
+    } else if (Object.keys(checkTokenResponse).length === 0 && isTokensAndExpiresIn) {
         await store.dispatch('userModule/checkToken');
         access = true;
     }
