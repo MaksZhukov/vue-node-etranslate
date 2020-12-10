@@ -82,7 +82,10 @@
                 "status": "warning",
                 "message": "Пользователь не найден"
             },
-            "userSignIn": { "status": "success", "message": "entry success" },
+            "userSignIn": { 
+                "status": "success",
+                "message": "Успешный вход" 
+            },
             "problemDatabase": {
                 "status": "error",
                 "message": "Проблема с базой данных"

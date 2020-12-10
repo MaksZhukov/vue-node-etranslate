@@ -89,7 +89,7 @@
           </v-flex>
         </v-layout>
         <v-textarea
-          :append-icon="!outputText ? '' : getUserDictionaryWord(inputText) ?
+          :append-icon="!outputText ? '' : getUserDictionaryWord(inputText, outputText) ?
            'star': 'star_border'"
           :append-icon-cb="handleClickAppendIcon"
           outline
@@ -287,9 +287,9 @@ export default {
       }
     },
     handleClickAppendIcon() {
-      const wordD = this.getUserDictionaryWord(this.inputText);
+      const wordD = this.getUserDictionaryWord(this.inputText, this.outputText);
       if (wordD) {
-        this.removeFromUserDictionary(wordD.id);
+        this.removeFromUserDictionary([wordD.id]);
       } else {
         this.addToUserDictionary({
           text: this.inputText,
@@ -299,8 +299,8 @@ export default {
         });
       }
     },
-    getUserDictionaryWord(word) {
-      return this.userDictionary.find(dWord => dWord.text === word);
+    getUserDictionaryWord(word, translate) {
+      return this.userDictionary.find(dWord => dWord.text === word && dWord.translate === translate);
     },
     runTranslateQueryUrl(query) {
       const { text, translateLang, textLang } = query;
