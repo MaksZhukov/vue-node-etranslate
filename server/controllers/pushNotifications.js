@@ -24,6 +24,9 @@ const taskNotificationFromUserDictionary = (token, userID, textLang, translateLa
 
 app.post('/api/push-notification', checkAuth, async (req, res) => {
     const { token, minutes, userID, textLang, translateLang } = req.body;
+    if (cronsByUserID[userID]) {
+        cronsByUserID[userID].task.cancel();
+    }
     const task = schedule.scheduleJob(
         `*/${minutes} * * * *`,
         taskNotificationFromUserDictionary(token, userID, textLang, translateLang)
