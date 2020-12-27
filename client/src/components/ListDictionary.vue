@@ -27,7 +27,7 @@
             <v-flex sm3>
               <v-text-field
                 v-model="search"
-                label="Search"
+                label="Поиск"
                 append-icon="search"
               ></v-text-field>
             </v-flex>
@@ -40,8 +40,8 @@
                 item-value="abbr"
                 persistent-hint
                 chips
-                label="LanguageText"
-                placeholder="All languages"
+                label="Язык текста"
+                placeholder="Все языки"
                 return-object
                 multiple
               >
@@ -64,8 +64,8 @@
                 item-value="abbr"
                 persistent-hint
                 chips
-                label="LanguageTranslate"
-                placeholder="All languages"
+                label="Язык перевода"
+                placeholder="Все языки"
                 return-object
                 multiple
               >
